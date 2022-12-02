@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "username": "phucth",
+            "fullname": "Trương Hoài Phúc",
+            "department": {
+                "name": "Phòng Kế toán - Quản trị",
+                "code": "KTQT"
+            },
+            "address": "Số 1 Nam Kỳ Khởi Nghĩa, P. Nguyễn Thái Bình, Q.1, TPHCM",
+            "phonenumber": "0979778828",
+            "email": "phucth@vsd.vn",
+            "title": "Senior Official",
+            "gender": false,
+            "birthday": "1985-10-16",
+            "createddate": "2015-09-13 11:22:00",
+            "status": "active",
+            "avatar": "ionibowcher.png"
+        }
+    ]
+}

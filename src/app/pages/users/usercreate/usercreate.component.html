@@ -1,0 +1,70 @@
+<h3>Thêm người dùng mới</h3>
+<div class="col-12 md:col-12">
+    <div class="card p-fluid">
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="username">Tên đăng nhập</label>
+                <input pInputText id="username" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="fullname">Họ tên</label>
+                <input pInputText id="fullname" type="text" />
+            </div>
+        </div>
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="birthday">Ngày sinh</label>
+                <input pInputText id="birthday" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="gender">Giới tính</label>
+                <input pInputText id="gender" type="text" />
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="email">Email</label>
+                <input pInputText id="email" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="phonenumber">Số điện thoại</label>
+                <input pInputText id="phonenumber" type="text" />
+            </div>
+        </div>
+        <div class="field">
+            <label htmlFor="address">Địa chỉ</label>
+            <input pInputText id="address" type="text" />
+        </div>
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="department">Phòng ban</label>
+                <input pInputText id="department" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="title">Chức danh</label>
+                <input pInputText id="title" type="text" />
+            </div>
+        </div>
+        <div class="field">
+            <label htmlFor="avatar">Avatar</label>
+            <p-fileUpload
+                name="demo[]"
+                url="./upload.php"
+                (onUpload)="onUpload($event)"
+                [multiple]="true"
+                accept="image/*"
+                [maxFileSize]="1000000"
+                id="avatar"
+            >
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">
+                            {{ file.name }} - {{ file.size }} bytes
+                        </li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+        </div>
+    </div>
+</div>

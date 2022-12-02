@@ -24,6 +24,22 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
+                label: 'Hệ thống',
+                items: [
+                    {
+                        label: 'Quản lý người dùng',
+                        icon: 'pi pi-fw pi-user',
+                        routerLink: ['/users'],
+                    },
+                    // {
+                    //     label: 'PrimeFlex',
+                    //     icon: 'pi pi-fw pi-desktop',
+                    //     url: ['https://www.primefaces.org/primeflex/'],
+                    //     target: '_blank',
+                    // },
+                ],
+            },
+            {
                 label: 'UI Components',
                 items: [
                     {

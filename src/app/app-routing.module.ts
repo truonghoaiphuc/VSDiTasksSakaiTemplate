@@ -56,6 +56,13 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                                     './demo/components/pages/pages.module'
                                 ).then((m) => m.PagesModule),
                         },
+                        {
+                            path: 'users',
+                            loadChildren: () =>
+                                import('./pages/users/users.module').then(
+                                    (m) => m.UsersModule
+                                ),
+                        },
                     ],
                 },
                 {

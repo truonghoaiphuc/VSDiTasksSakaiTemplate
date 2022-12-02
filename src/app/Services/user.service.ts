@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { User } from '../demo/api/customer';
 
 declare type LoginResponse = {
     token: string;
@@ -19,5 +19,13 @@ export class UserService {
         password: string
     ): Observable<LoginResponse> {
         return this._http.post<any>(`/api/auth/login`, { username, password });
+    }
+
+    public GetAllUsers() {
+        return this._http
+            .get<any>('assets/demo/data/users.json')
+            .toPromise()
+            .then((res) => res.data as User[])
+            .then((data) => data);
     }
 }
