@@ -19,6 +19,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { DialogModule } from 'primeng/dialog';
         ToastModule,
         FileUploadModule,
         DialogModule,
+        ConfirmPopupModule,
     ],
 })
 export class UsersModule {}

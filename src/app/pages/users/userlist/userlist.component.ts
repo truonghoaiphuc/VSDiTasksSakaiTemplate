@@ -47,6 +47,7 @@ export class UserlistComponent implements OnInit {
 
     constructor(
         private messageService: MessageService,
+        private confirmationService: ConfirmationService,
         private userService: UserService
     ) {}
 
@@ -125,6 +126,28 @@ export class UserlistComponent implements OnInit {
         }
     }
 
+    confirmDelete(event: Event) {
+        this.confirmationService.confirm({
+            key: 'confirm2',
+            target: event.target || new EventTarget(),
+            message: 'Bạn muốn xóa người dùng này?',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Confirmed',
+                    detail: 'You have accepted',
+                });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'You have rejected',
+                });
+            },
+        });
+    }
     // expandAll() {
     //     if (!this.isExpanded) {
     //         this.products.forEach((product) =>

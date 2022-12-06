@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
+import { Message, MessageService } from 'primeng/api';
 import { catchError, filter, mergeMap, Observable, of, Subject } from 'rxjs';
 import { AuthenService } from 'src/app/Services/authen.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -25,10 +26,11 @@ import { LoginState } from '../state';
             }
         `,
     ],
-    providers: [RxState],
+    providers: [RxState, MessageService],
 })
 export class LoginComponent implements OnInit {
     valCheck: string[] = ['remember'];
+    msgs: Message[] = [];
 
     loginForm!: FormGroup;
     loading: boolean = false;
@@ -46,6 +48,13 @@ export class LoginComponent implements OnInit {
         private _state: RxState<LoginState>
     ) {
         this._state.set({ hasError: false });
+        this.msgs = [
+            {
+                severity: 'error',
+                summary: 'Đăng nhập thất bại',
+                detail: 'Tên đăng nhập hoặc mật khẩu không hợp lệ',
+            },
+        ];
     }
 
     initForm(): void {
@@ -102,7 +111,14 @@ export class LoginComponent implements OnInit {
                 },
             });
     }
-
+    showErrorViaMessages() {
+        this.msgs = [];
+        this.msgs.push({
+            severity: 'error',
+            summary: 'Error Message',
+            detail: 'Validation failed',
+        });
+    }
     ngOnInit(): void {
         this.initForm();
         this.manageEvents();
