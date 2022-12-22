@@ -4,12 +4,12 @@ import { MessageService } from 'primeng/api';
 @Component({
     selector: 'app-usercreate',
     templateUrl: './usercreate.component.html',
-    styleUrls: ['./usercreate.component.scss'],
+    // styleUrls: ['./usercreate.component.scss'],
     providers: [MessageService],
 })
 export class UsercreateComponent implements OnInit {
     uploadedFiles: any[] = [];
-
+    value7: any;
     constructor(private messageService: MessageService) {}
 
     ngOnInit(): void {}

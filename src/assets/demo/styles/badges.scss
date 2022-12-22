@@ -60,13 +60,17 @@
 }
 
 .user-badge {
-    &.status-active {
+    &.status-1 {
         background: #0bb311;
         color: #f8f8f8;
     }
 
-    &.status-inactive {
-        background: #ff4c05;
+    &.status-0 {
+        background: #ffdb0c;
+        color: #ffffff;
+    }
+    &.status-2 {
+        background: #ff1807;
         color: #ffffff;
     }
 }

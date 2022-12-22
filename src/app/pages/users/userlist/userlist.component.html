@@ -22,9 +22,9 @@
                 styleClass="p-datatable-gridlines"
                 [paginator]="true"
                 [globalFilterFields]="[
-                    'username',
-                    'fullname',
-                    'department.name',
+                    'userName',
+                    'fullName',
+                    'deptName',
                     'status'
                 ]"
                 responsiveLayout="scroll"
@@ -60,12 +60,6 @@
                                 class="flex justify-content-between align-items-center"
                             >
                                 Người dùng
-                                <!-- <p-columnFilter
-                                    type="text"
-                                    field="username"
-                                    display="menu"
-                                    placeholder="Search by name"
-                                ></p-columnFilter> -->
                             </div>
                         </th>
                         <th style="min-width: 14rem">
@@ -73,58 +67,6 @@
                                 class="flex justify-content-between align-items-center"
                             >
                                 Phòng
-                                <!-- <p-columnFilter
-                                    field="department"
-                                    matchMode="in"
-                                    display="menu"
-                                    [showMatchModes]="false"
-                                    [showOperator]="false"
-                                    [showAddButton]="false"
-                                >
-                                    <ng-template pTemplate="header">
-                                        <div class="px-3 pt-3 pb-0">
-                                            <span class="font-bold"
-                                                >Agent Picker</span
-                                            >
-                                        </div>
-                                    </ng-template>
-                                    <ng-template
-                                        pTemplate="filter"
-                                        let-value
-                                        let-filter="filterCallback"
-                                    >
-                                        <p-multiSelect
-                                            [ngModel]="value"
-                                            [options]="representatives"
-                                            placeholder="Any"
-                                            (onChange)="filter($event.value)"
-                                            optionLabel="name"
-                                        >
-                                            <ng-template
-                                                let-option
-                                                pTemplate="item"
-                                            >
-                                                <div
-                                                    class="p-multiselect-representative-option"
-                                                >
-                                                    <img
-                                                        [alt]="option.label"
-                                                        src="assets/demo/images/avatar/{{
-                                                            option.image
-                                                        }}"
-                                                        width="32"
-                                                        style="
-                                                            vertical-align: middle;
-                                                        "
-                                                    />
-                                                    <span class="ml-2">{{
-                                                        option.name
-                                                    }}</span>
-                                                </div>
-                                            </ng-template>
-                                        </p-multiSelect>
-                                    </ng-template>
-                                </p-columnFilter> -->
                             </div>
                         </th>
                         <th style="min-width: 10rem">
@@ -132,12 +74,6 @@
                                 class="flex justify-content-between align-items-center"
                             >
                                 Ngày tạo
-                                <!-- <p-columnFilter
-                                    type="date"
-                                    field="createddate"
-                                    display="menu"
-                                    placeholder="mm/dd/yyyy"
-                                ></p-columnFilter> -->
                             </div>
                         </th>
                         <th style="min-width: 6rem">
@@ -145,47 +81,9 @@
                                 class="flex justify-content-between align-items-center"
                             >
                                 Trạng thái
-                                <!-- <p-columnFilter
-                                    field="status"
-                                    matchMode="equals"
-                                    display="menu"
-                                >
-                                    <ng-template
-                                        pTemplate="filter"
-                                        let-value
-                                        let-filter="filterCallback"
-                                    >
-                                        <p-dropdown
-                                            [ngModel]="value"
-                                            [options]="statuses"
-                                            (onChange)="filter($event.value)"
-                                            placeholder="Any"
-                                            [style]="{ 'min-width': '12rem' }"
-                                        >
-                                            <ng-template
-                                                let-option
-                                                pTemplate="item"
-                                            >
-                                                <span>{{ option.label }}</span>
-                                            </ng-template>
-                                        </p-dropdown>
-                                    </ng-template>
-                                </p-columnFilter> -->
                             </div>
                         </th>
                         <th style="min-width: 12rem"></th>
-                        <!-- <th style="min-width: 8rem">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
-                                Verified
-                                <p-columnFilter
-                                    type="boolean"
-                                    field="verified"
-                                    display="menu"
-                                ></p-columnFilter>
-                            </div>
-                        </th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -199,19 +97,30 @@
                                 style="vertical-align: middle"
                             />
                             <span class="image-text pl-2 ml-2"
-                                >{{ user.username }} - {{ user.fullname }}</span
+                                >{{ user.userName }} - {{ user.fullName }}</span
                             >
                         </td>
                         <td>
-                            {{ user.department.name }}
+                            {{ user.deptName }}
                         </td>
                         <td>
-                            {{ user.createddate | date : "dd/MM/yyyy HH:mm" }}
+                            {{ user.createdDate | date : "dd/MM/yyyy HH:mm" }}
                         </td>
                         <td>
                             <span
-                                [class]="'user-badge status-' + user.status"
-                                >{{ user.status }}</span
+                                *ngIf="user.status === 0"
+                                class="user-badge status-0"
+                                >INACTIVE</span
+                            >
+                            <span
+                                *ngIf="user.status === 1"
+                                class="user-badge status-1"
+                                >ACTIVE</span
+                            >
+                            <span
+                                *ngIf="user.status === 2"
+                                class="user-badge status-2"
+                                >BANNED</span
                             >
                         </td>
                         <td>
@@ -222,7 +131,7 @@
                                     type="button"
                                     icon="pi pi-pencil"
                                     class="p-button-rounded"
-                                    [routerLink]="['./', '{{user.id}}', 'edit']"
+                                    routerLink="./{{ user.id }}/edit"
                                 ></button>
                                 <button
                                     pButton
@@ -230,7 +139,7 @@
                                     type="button"
                                     icon="pi pi-user-edit"
                                     class="p-button-rounded p-button-secondary"
-                                    [routerLink]="['./', '{{user.id}}', 'edit']"
+                                    routerLink="./{{ user.id }}"
                                 ></button>
                                 <button
                                     pButton
@@ -271,81 +180,169 @@
     [(visible)]="display"
     [modal]="true"
     showEffect="fade"
-    [style]="{ width: '50vw' }"
+    [style]="{ width: '35vw' }"
     [breakpoints]="{ '960px': '75vw' }"
 >
     <!-- <div class="col-12 md:col-12">
 
     </div> -->
-    <div class="card p-fluid p-3">
-        <div class="p-formgrid grid">
-            <div class="field col pb-0">
-                <label htmlFor="username">Tên đăng nhập</label>
-                <input pInputText id="username" type="text" />
+    <form [formGroup]="formCreate" (ngSubmit)="onSubmit()">
+        <div class="card p-fluid p-3">
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="username">Tên đăng nhập</label>
+                    <input
+                        pInputText
+                        id="username"
+                        formControlName="userName"
+                        type="text"
+                    />
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="password">Nhóm</label>
+                    <p-dropdown
+                        [options]="(roles$ | async)!"
+                        placeholder="Chọn nhóm người dùng"
+                        optionLabel="roleName"
+                        optionValue="roleId"
+                        formControlName="role"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
             </div>
-            <div class="field col pb-0">
-                <label htmlFor="fullname">Họ tên</label>
-                <input pInputText id="fullname" type="text" />
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="password">Mật khẩu</label>
+                    <p-password
+                        formControlName="password"
+                        inputId="password"
+                    ></p-password>
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
+                    <p-password inputId="confirmPassword"></p-password>
+                </div>
             </div>
-        </div>
-        <div class="p-formgrid grid">
-            <div class="field col pb-0">
-                <label htmlFor="birthday">Ngày sinh</label>
-                <input pInputText id="birthday" type="text" />
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="firstName">Họ</label>
+                    <input
+                        pInputText
+                        id="firstName"
+                        formControlName="firstName"
+                        type="text"
+                    />
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="lastName">Tên</label>
+                    <input
+                        pInputText
+                        id="lastName"
+                        formControlName="lastName"
+                        type="text"
+                    />
+                </div>
             </div>
-            <div class="field col pb-0">
-                <label htmlFor="gender">Giới tính</label>
-                <input pInputText id="gender" type="text" />
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="dob">Ngày sinh</label>
+                    <p-calendar
+                        inputId="dob"
+                        formControlName="dateOfBirth"
+                        dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="gender">Giới tính</label>
+                    <p-dropdown
+                        [options]="genders"
+                        placeholder="Chọn giới tính"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="gender"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
             </div>
-        </div>
 
-        <div class="p-formgrid grid">
-            <div class="field col pb-0">
-                <label htmlFor="email">Email</label>
-                <input pInputText id="email" type="text" />
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        pInputText
+                        id="email"
+                        formControlName="email"
+                        type="text"
+                    />
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="phonenumber">Số điện thoại</label>
+                    <p-inputMask
+                        mask="(999) 999-9999"
+                        placeholder="(999) 999-9999"
+                        formControlName="phoneNumber"
+                    ></p-inputMask>
+                </div>
             </div>
-            <div class="field col pb-0">
-                <label htmlFor="phonenumber">Số điện thoại</label>
-                <input pInputText id="phonenumber" type="text" />
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="address">Địa chỉ</label>
+                    <input
+                        pInputText
+                        id="address"
+                        formControlName="address"
+                        type="text"
+                    />
+                </div>
+            </div>
+            <div class="p-formgrid grid">
+                <div class="field col pb-0">
+                    <label htmlFor="deptCode">Phòng ban</label>
+                    <p-dropdown
+                        [options]="(depts$ | async)!"
+                        placeholder="Chọn phòng ban"
+                        optionLabel="deptName"
+                        optionValue="deptCode"
+                        formControlName="dept"
+                        [showClear]="true"
+                    >
+                    </p-dropdown>
+                </div>
+                <div class="field col pb-0">
+                    <label htmlFor="title">Chức danh</label>
+                    <p-dropdown
+                        [options]="(titles$ | async)!"
+                        placeholder="Chọn Chức danh"
+                        optionLabel="titleName"
+                        optionValue="titleId"
+                        formControlName="title"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="field">
+                <label htmlFor="avatar">Avatar</label>
+                <p-fileUpload
+                    name="demo[]"
+                    url="./upload.php"
+                    (onUpload)="onUpload($event)"
+                    [multiple]="true"
+                    accept="image/*"
+                    [maxFileSize]="1000000"
+                    id="avatar"
+                >
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">
+                                {{ file.name }} - {{ file.size }} bytes
+                            </li>
+                        </ul>
+                    </ng-template>
+                </p-fileUpload>
             </div>
         </div>
-        <div class="p-formgrid grid">
-            <div class="field col pb-0">
-                <label htmlFor="address">Địa chỉ</label>
-                <input pInputText id="address" type="text" />
-            </div>
-        </div>
-        <div class="p-formgrid grid">
-            <div class="field col pb-0">
-                <label htmlFor="department">Phòng ban</label>
-                <input pInputText id="department" type="text" />
-            </div>
-            <div class="field col pb-0">
-                <label htmlFor="title">Chức danh</label>
-                <input pInputText id="title" type="text" />
-            </div>
-        </div>
-        <div class="field">
-            <label htmlFor="avatar">Avatar</label>
-            <p-fileUpload
-                name="demo[]"
-                url="./upload.php"
-                (onUpload)="onUpload($event)"
-                [multiple]="true"
-                accept="image/*"
-                [maxFileSize]="1000000"
-                id="avatar"
-            >
-                <ng-template pTemplate="content">
-                    <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">
-                            {{ file.name }} - {{ file.size }} bytes
-                        </li>
-                    </ul>
-                </ng-template>
-            </p-fileUpload>
-        </div>
-    </div>
+    </form>
+
     <ng-template pTemplate="footer">
         <button
             pButton
@@ -357,7 +354,7 @@
         <button
             pButton
             icon="pi pi-check"
-            (click)="display = false"
+            (click)="onSubmit()"
             label="Ok"
             class="p-button-outlined"
         ></button>

@@ -29,8 +29,18 @@
             </div>
             <div class="field col">
                 <label htmlFor="phonenumber">Số điện thoại</label>
-                <input pInputText id="phonenumber" type="text" />
+                <p-inputMask pInputText mask="['99 / 99 / 9999']"></p-inputMask>
             </div>
+        </div>
+        <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <p-inputMask
+                    inputId="inputmask"
+                    mask="99/99/9999"
+                    [(ngModel)]="value7"
+                ></p-inputMask>
+                <label for="inputmask">InputMask</label>
+            </span>
         </div>
         <div class="field">
             <label htmlFor="address">Địa chỉ</label>

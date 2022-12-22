@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { UserComponent } from './user.component';
 import { UsercreateComponent } from './usercreate/usercreate.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { UserlistComponent } from './userlist/userlist.component';
@@ -10,11 +11,7 @@ import { UserupdateComponent } from './userupdate/userupdate.component';
         RouterModule.forChild([
             {
                 path: '',
-                component: UserlistComponent,
-            },
-            {
-                path: ':create',
-                component: UsercreateComponent,
+                component: UserComponent,
             },
             {
                 path: ':id',
@@ -23,6 +20,10 @@ import { UserupdateComponent } from './userupdate/userupdate.component';
             {
                 path: ':id/edit',
                 component: UserupdateComponent,
+            },
+            {
+                path: ':create',
+                component: UsercreateComponent,
             },
             { path: '**', redirectTo: '/notfound' },
         ]),

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../demo/api/customer';
+import { UserInfo } from '../Models/user.model';
 
 declare type LoginResponse = {
     token: string;
@@ -21,11 +21,15 @@ export class UserService {
         return this._http.post<any>(`/api/auth/login`, { username, password });
     }
 
-    public GetAllUsers() {
-        return this._http
-            .get<any>('assets/demo/data/users.json')
-            .toPromise()
-            .then((res) => res.data as User[])
-            .then((data) => data);
+    public GetAllUsers(): Observable<any> {
+        return this._http.get<any>(`/api/user`);
+    }
+
+    public GetTitles(): Observable<any> {
+        return this._http.get<any>('/api/Title');
+    }
+
+    public CreateUser(us: UserInfo): any {
+        return this._http.post<UserInfo>('api/User/add', us);
     }
 }

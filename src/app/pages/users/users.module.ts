@@ -5,7 +5,7 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
 import { UsercreateComponent } from './usercreate/usercreate.component';
 import { UserupdateComponent } from './userupdate/userupdate.component';
 import { UserRoutingModule } from './user-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
@@ -20,9 +20,16 @@ import { ToastModule } from 'primeng/toast';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { InputMaskModule } from 'primeng/inputmask';
+import { UserPageState, USER_PAGE_STATE } from './states/UserPageState.state';
+import { RxState } from '@rx-angular/state';
+import { UserComponent } from './user.component';
+import { CalendarModule } from 'primeng/calendar';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
     declarations: [
+        UserComponent,
         UserlistComponent,
         UserdetailComponent,
         UsercreateComponent,
@@ -31,6 +38,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     imports: [
         CommonModule,
         UserRoutingModule,
+        ReactiveFormsModule,
         FormsModule,
         TableModule,
         RatingModule,
@@ -46,6 +54,15 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
         FileUploadModule,
         DialogModule,
         ConfirmPopupModule,
+        InputMaskModule,
+        CalendarModule,
+        PasswordModule,
+    ],
+    providers: [
+        {
+            provide: USER_PAGE_STATE,
+            useFactory: () => new RxState<UserPageState>(),
+        },
     ],
 })
 export class UsersModule {}
