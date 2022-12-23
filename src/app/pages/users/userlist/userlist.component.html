@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="grid">
     <div class="col-12">
         <div class="card">
@@ -147,10 +148,16 @@
                                     type="button"
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger"
-                                    (click)="confirmDelete($event)"
+                                    (click)="
+                                        confirmDelete(
+                                            $event,
+                                            user.id,
+                                            user.userName
+                                        )
+                                    "
                                 >
                                     <p-confirmPopup
-                                        key="confirm2"
+                                        key="confirmDelete"
                                     ></p-confirmPopup>
                                 </button>
                             </div>
@@ -205,7 +212,7 @@
                         placeholder="Chọn nhóm người dùng"
                         optionLabel="roleName"
                         optionValue="roleId"
-                        formControlName="role"
+                        formControlName="roleId"
                         [showClear]="true"
                     ></p-dropdown>
                 </div>
@@ -303,7 +310,7 @@
                         placeholder="Chọn phòng ban"
                         optionLabel="deptName"
                         optionValue="deptCode"
-                        formControlName="dept"
+                        formControlName="deptId"
                         [showClear]="true"
                     >
                     </p-dropdown>
@@ -315,7 +322,7 @@
                         placeholder="Chọn Chức danh"
                         optionLabel="titleName"
                         optionValue="titleId"
-                        formControlName="title"
+                        formControlName="titleId"
                         [showClear]="true"
                     ></p-dropdown>
                 </div>

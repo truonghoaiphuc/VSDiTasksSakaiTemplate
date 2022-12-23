@@ -23,6 +23,8 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
+import { userInfo } from 'os';
+import { MyResponse } from 'src/app/Models/myresponse.model';
 
 interface expandedRows {
     [key: string]: boolean;
@@ -115,14 +117,26 @@ export class UserlistComponent implements OnInit {
             lastName: ['', [Validators.required]],
             password: ['', [Validators.required]],
             dateOfBirth: ['', [Validators.required]],
-            gender: ['', [Validators.required]],
+            gender: [false, [Validators.required]],
             email: [''],
             phoneNumber: [''],
             address: [''],
-            dept: ['', [Validators.required]],
-            title: ['', [Validators.required]],
-            role: ['', [Validators.required]],
+            deptId: ['', [Validators.required]],
+            titleId: ['', [Validators.required]],
+            roleId: ['', [Validators.required]],
+            createdId: ['phucth'],
         });
+    }
+
+    resetForm() {
+        this.formCreate.controls['userName'].setValue('');
+        this.formCreate.controls['firstName'].setValue('');
+        this.formCreate.controls['lastName'].setValue('');
+        this.formCreate.controls['password'].setValue('');
+        this.formCreate.controls['dateOfBirth'].setValue('');
+        this.formCreate.controls['email'].setValue('');
+        this.formCreate.controls['phoneNumber'].setValue('');
+        this.formCreate.controls['address'].setValue('');
     }
 
     onUpload(event: any) {
@@ -143,17 +157,33 @@ export class UserlistComponent implements OnInit {
             this.loading = false;
         });
         this.genders = [
-            { label: 'Nam', value: '0' },
-            { label: 'Nữ', value: '1' },
+            { label: 'Nam', value: false },
+            { label: 'Nữ', value: true },
         ];
         this.initForm();
     }
 
     onSubmit() {
-        console.log(this.formCreate.value);
-        var result = this.userService.CreateUser(
-            this.formCreate.value as UserInfo
-        );
+        this.userService
+            .CreateUser(this.formCreate.value)
+            .subscribe((result: MyResponse) => {
+                console.log(result);
+                if (result.success) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Thành công',
+                        detail: 'Thêm người dùng thành công',
+                    });
+                    this.resetForm();
+                    this.display = false;
+                    this.userListState.connect(
+                        this.userService.GetAllUsers(),
+                        (_, curr) => ({
+                            users: curr,
+                        })
+                    );
+                }
+            });
     }
 
     onSort() {
@@ -190,25 +220,30 @@ export class UserlistComponent implements OnInit {
         }
     }
 
-    confirmDelete(event: Event) {
+    confirmDelete(event: Event, id: number, usname: string) {
         this.confirmationService.confirm({
-            key: 'confirm2',
+            key: 'confirmDelete',
             target: event.target || new EventTarget(),
-            message: 'Bạn muốn xóa người dùng này?',
+            message: `Bạn muốn xóa người dùng ${usname}?`,
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.messageService.add({
-                    severity: 'info',
-                    summary: 'Confirmed',
-                    detail: 'You have accepted',
-                });
-            },
-            reject: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Rejected',
-                    detail: 'You have rejected',
-                });
+                this.userService
+                    .DeleteUser(id)
+                    .subscribe((result: MyResponse) => {
+                        if (result.success) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Thành công',
+                                detail: `Bạn đã xóa thành công người dùng ${usname} có id=${id}`,
+                            });
+                            this.userListState.connect(
+                                this.userService.GetAllUsers(),
+                                (_, curr) => ({
+                                    users: curr,
+                                })
+                            );
+                        }
+                    });
             },
         });
     }

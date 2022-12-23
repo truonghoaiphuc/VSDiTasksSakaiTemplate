@@ -19,6 +19,7 @@ export interface UserInfo {
     roleId: string;
     roleName: string;
     title: string;
+    titleName: string;
     dateOfBirth: Date;
     updateDate: Date;
     updateId?: string;

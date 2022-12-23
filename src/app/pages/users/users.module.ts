@@ -57,6 +57,7 @@ import { PasswordModule } from 'primeng/password';
         InputMaskModule,
         CalendarModule,
         PasswordModule,
+        ToastModule,
     ],
     providers: [
         {
