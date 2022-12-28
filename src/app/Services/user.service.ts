@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MyResponse } from '../Models/myresponse.model';
-import { UserInfo } from '../Models/user.model';
+import { UserInfo, UserStatus } from '../Models/user.model';
 
 declare type LoginResponse = {
     token: string;
@@ -30,7 +30,9 @@ export class UserService {
         return this._http.get<any>('/api/Title');
     }
 
-    public CreateUser(us: UserInfo): Observable<MyResponse> {
+    public CreateUser(us: UserInfo, avatar: string): Observable<MyResponse> {
+        us.avatar = avatar;
+        us.status = UserStatus.ACTIVE;
         return this._http.post<MyResponse>('api/User/add', us);
     }
 

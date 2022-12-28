@@ -88,14 +88,16 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
-                    <tr class="max-height:2rem">
+                    <tr class="max-height:2rem;">
                         <td>
                             <img
-                                src="assets/demo/images/avatar/{{
-                                    user.avatar
-                                }}"
-                                width="32"
-                                style="vertical-align: middle"
+                                src="{{ user.avatar }}"
+                                width="42"
+                                height="42"
+                                style="
+                                    vertical-align: middle;
+                                    border-radius: 50%;
+                                "
                             />
                             <span class="image-text pl-2 ml-2"
                                 >{{ user.userName }} - {{ user.fullName }}</span
@@ -331,20 +333,21 @@
                 <label htmlFor="avatar">Avatar</label>
                 <p-fileUpload
                     name="demo[]"
-                    url="./upload.php"
-                    (onUpload)="onUpload($event)"
+                    [customUpload]="true"
+                    (uploadHandler)="onUpload($event)"
                     [multiple]="true"
                     accept="image/*"
                     [maxFileSize]="1000000"
+                    [auto]="true"
                     id="avatar"
                 >
-                    <ng-template pTemplate="content">
+                    <!-- <ng-template pTemplate="content">
                         <ul *ngIf="uploadedFiles.length">
                             <li *ngFor="let file of uploadedFiles">
                                 {{ file.name }} - {{ file.size }} bytes
                             </li>
                         </ul>
-                    </ng-template>
+                    </ng-template> -->
                 </p-fileUpload>
             </div>
         </div>

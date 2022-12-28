@@ -23,17 +23,10 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { userInfo } from 'os';
 import { MyResponse } from 'src/app/Models/myresponse.model';
 
 interface expandedRows {
     [key: string]: boolean;
-}
-
-enum UserStatus {
-    INACTIVE = 0,
-    ACTIVE = 1,
-    BANNED = 2,
 }
 
 @Component({
@@ -43,7 +36,7 @@ enum UserStatus {
     providers: [MessageService, ConfirmationService, RxState],
 })
 export class UserlistComponent implements OnInit {
-    users: User[] = [];
+    users: UserInfo[] = [];
     usroles: Role[] = [];
 
     customers1: Customer[] = [];
@@ -73,6 +66,11 @@ export class UserlistComponent implements OnInit {
     display: boolean = false;
 
     uploadedFiles: any[] = [];
+    reader: FileReader | undefined;
+    fileBuffer: any;
+    progressPercent = 0;
+
+    usAvatar: string = '';
 
     formCreate!: FormGroup;
     genders: any[] = [];
@@ -139,16 +137,47 @@ export class UserlistComponent implements OnInit {
         this.formCreate.controls['address'].setValue('');
     }
 
-    onUpload(event: any) {
-        for (const file of event.files) {
-            this.uploadedFiles.push(file);
+    public async onUpload(event: any) {
+        for (let file of event.files) {
+            await this.processFile(file);
         }
+    }
 
-        this.messageService.add({
-            severity: 'info',
-            summary: 'Success',
-            detail: 'File Uploaded',
+    public readFileAsync(file: File) {
+        return new Promise((resolve, reject) => {
+            let reader = new FileReader();
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
         });
+    }
+
+    public arrayBufferToString(arrayBuffer: any, decoderType = 'utf-8') {
+        let decoder = new TextDecoder(decoderType);
+        return decoder.decode(arrayBuffer);
+    }
+
+    public arrayBufferToBase64(buffer: ArrayBuffer): string {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i <= len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
+    public async processFile(file: File) {
+        try {
+            let arrayBuffer = await this.readFileAsync(file);
+            const dataBase64 = this.arrayBufferToBase64(
+                arrayBuffer as ArrayBuffer
+            );
+            this.usAvatar = 'data:image/jpg;base64,' + dataBase64;
+        } catch (error) {}
     }
 
     ngOnInit() {
@@ -160,30 +189,36 @@ export class UserlistComponent implements OnInit {
             { label: 'Nam', value: false },
             { label: 'Nữ', value: true },
         ];
+        this.reader = new FileReader();
+        this.reader.onload = () => {
+            this.fileBuffer = this.reader?.result;
+        };
         this.initForm();
     }
 
     onSubmit() {
-        this.userService
-            .CreateUser(this.formCreate.value)
-            .subscribe((result: MyResponse) => {
-                console.log(result);
-                if (result.success) {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Thành công',
-                        detail: 'Thêm người dùng thành công',
-                    });
-                    this.resetForm();
-                    this.display = false;
-                    this.userListState.connect(
-                        this.userService.GetAllUsers(),
-                        (_, curr) => ({
-                            users: curr,
-                        })
-                    );
-                }
-            });
+        if (this.formCreate.valid) {
+            this.userService
+                .CreateUser(this.formCreate.value as UserInfo, this.usAvatar)
+                .subscribe((result: MyResponse) => {
+                    console.log(result);
+                    if (result.success) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Thành công',
+                            detail: 'Thêm người dùng thành công',
+                        });
+                        this.resetForm();
+                        this.display = false;
+                        this.userListState.connect(
+                            this.userService.GetAllUsers(),
+                            (_, curr) => ({
+                                users: curr,
+                            })
+                        );
+                    }
+                });
+        }
     }
 
     onSort() {

@@ -26,6 +26,7 @@ import { RxState } from '@rx-angular/state';
 import { UserComponent } from './user.component';
 import { CalendarModule } from 'primeng/calendar';
 import { PasswordModule } from 'primeng/password';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { PasswordModule } from 'primeng/password';
         CalendarModule,
         PasswordModule,
         ToastModule,
+        AvatarModule,
     ],
     providers: [
         {

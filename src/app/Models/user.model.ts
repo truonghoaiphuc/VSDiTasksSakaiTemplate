@@ -6,6 +6,7 @@ export interface CurrentUser {
 
 export interface UserInfo {
     userName: string;
+    password: string;
     firstName: string;
     lastName: string;
     fullName: string;
@@ -21,8 +22,15 @@ export interface UserInfo {
     title: string;
     titleName: string;
     dateOfBirth: Date;
+    status: UserStatus;
     updateDate: Date;
     updateId?: string;
     createdDate: Date;
     createdId?: string;
+}
+
+export enum UserStatus {
+    INACTIVE = 0,
+    ACTIVE = 1,
+    BANNED = 2,
 }
