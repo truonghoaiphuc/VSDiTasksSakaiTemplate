@@ -1,5 +1,8 @@
 <p-toast></p-toast>
-<div class="grid">
+<div *ngIf="loading" class="loader">
+    <img src="assets/LOGO-VSD.png" />
+</div>
+<div *ngIf="!loading" class="grid">
     <div class="col-12">
         <div class="card">
             <div class="flex justify-content-end flex-column pb-3 sm:flex-row">

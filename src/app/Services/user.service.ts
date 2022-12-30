@@ -26,6 +26,10 @@ export class UserService {
         return this._http.get<any>(`/api/user`);
     }
 
+    public GetUserDetail(id: number): Observable<UserInfo> {
+        return this._http.get<UserInfo>(`/api/User/${id}`);
+    }
+
     public GetTitles(): Observable<any> {
         return this._http.get<any>('/api/Title');
     }
