@@ -5,7 +5,6 @@ import { Department } from 'src/app/Models/department.model';
 
 export interface UserListState {
     users: UserInfo[];
-    depts: any[];
 }
 
 export const USER_LIST_STATE = new InjectionToken<RxState<UserListState>>(

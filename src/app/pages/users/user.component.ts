@@ -3,6 +3,7 @@ import { RoleService } from 'src/app/Services/role.service';
 import { RxState } from '@rx-angular/state';
 import { UserPageState, USER_PAGE_STATE } from './states';
 import { UserService } from 'src/app/Services/user.service';
+import { DepartmentService } from 'src/app/Services/department.service';
 
 @Component({
     selector: 'app-users',
@@ -14,6 +15,7 @@ export class UserComponent implements OnInit {
     constructor(
         private roleService: RoleService,
         private userService: UserService,
+        private deptService : DepartmentService,
         @Inject(USER_PAGE_STATE)
         private userPageState: RxState<UserPageState>
     ) {
@@ -22,6 +24,9 @@ export class UserComponent implements OnInit {
         }));
         userPageState.connect(userService.GetTitles(), (_, curr) => ({
             titles: curr,
+        }));
+        userPageState.connect(deptService.GetDepts(), (_, curr) => ({
+            depts: curr,
         }));
     }
 

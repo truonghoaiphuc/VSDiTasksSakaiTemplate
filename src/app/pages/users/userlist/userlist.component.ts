@@ -10,13 +10,10 @@ import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { UserService } from 'src/app/Services/user.service';
 import { RxState } from '@rx-angular/state';
-import { UserPageState, USER_PAGE_STATE } from '../states/UserPageState.state';
-import { Role } from 'src/app/Models/role.model';
 import { Observable, share, shareReplay, switchMap } from 'rxjs';
 import { UserListState, USER_LIST_STATE } from '../states/UserListState.state';
 import { UserInfo } from 'src/app/Models/user.model';
 import { DepartmentService } from 'src/app/Services/department.service';
-import { Department } from 'src/app/Models/department.model';
 import {
     FormBuilder,
     FormControl,
@@ -37,7 +34,7 @@ interface expandedRows {
 })
 export class UserlistComponent implements OnInit {
     users: UserInfo[] = [];
-    usroles: Role[] = [];
+    
 
     customers1: Customer[] = [];
 
@@ -64,27 +61,7 @@ export class UserlistComponent implements OnInit {
     @ViewChild('filter') filter!: ElementRef;
 
     display: boolean = false;
-
-    uploadedFiles: any[] = [];
-    reader: FileReader | undefined;
-    fileBuffer: any;
-    progressPercent = 0;
-
-    usAvatar: string = '';
-
-    formCreate!: FormGroup;
-    genders: any[] = [];
-
-    get roles$(): Observable<Role[]> {
-        return this.userPageState.select('roles').pipe(shareReplay(1));
-    }
-
-    get titles$(): Observable<any[]> {
-        return this.userPageState.select('titles').pipe(shareReplay(1));
-    }
-    get depts$(): Observable<any[]> {
-        return this.userListState.select('depts').pipe(shareReplay(1));
-    }
+    displayDetailModal : boolean =false;
 
     get users$(): Observable<UserInfo[]> {
         return this.userListState.select('users').pipe(shareReplay(1));
@@ -93,91 +70,20 @@ export class UserlistComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private userService: UserService,
-        private deptService: DepartmentService,
-        private formBuilder: FormBuilder,
-        @Inject(USER_PAGE_STATE)
-        private userPageState: RxState<UserPageState>,
+        private userService: UserService,      
         private userListState: RxState<UserListState>
     ) {
         userListState.connect(userService.GetAllUsers(), (_, curr) => ({
             users: curr,
         }));
-        userListState.connect(deptService.GetDepts(), (_, curr) => ({
-            depts: curr,
-        }));
     }
 
-    initForm() {
-        this.formCreate = this.formBuilder.group({
-            userName: ['', [Validators.required]],
-            firstName: ['', [Validators.required]],
-            lastName: ['', [Validators.required]],
-            password: ['', [Validators.required]],
-            dateOfBirth: ['', [Validators.required]],
-            gender: [false, [Validators.required]],
-            email: [''],
-            phoneNumber: [''],
-            address: [''],
-            deptId: ['', [Validators.required]],
-            titleId: ['', [Validators.required]],
-            roleId: ['', [Validators.required]],
-            createdId: ['phucth'],
-        });
+    hideAddModal(isClosed: boolean){
+        this.display=!isClosed;
     }
 
-    resetForm() {
-        this.formCreate.controls['userName'].setValue('');
-        this.formCreate.controls['firstName'].setValue('');
-        this.formCreate.controls['lastName'].setValue('');
-        this.formCreate.controls['password'].setValue('');
-        this.formCreate.controls['dateOfBirth'].setValue('');
-        this.formCreate.controls['email'].setValue('');
-        this.formCreate.controls['phoneNumber'].setValue('');
-        this.formCreate.controls['address'].setValue('');
-    }
-
-    public async onUpload(event: any) {
-        for (let file of event.files) {
-            await this.processFile(file);
-        }
-    }
-
-    public readFileAsync(file: File) {
-        return new Promise((resolve, reject) => {
-            let reader = new FileReader();
-            reader.onload = () => {
-                resolve(reader.result);
-            };
-
-            reader.onerror = reject;
-            reader.readAsArrayBuffer(file);
-        });
-    }
-
-    public arrayBufferToString(arrayBuffer: any, decoderType = 'utf-8') {
-        let decoder = new TextDecoder(decoderType);
-        return decoder.decode(arrayBuffer);
-    }
-
-    public arrayBufferToBase64(buffer: ArrayBuffer): string {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i <= len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    }
-
-    public async processFile(file: File) {
-        try {
-            let arrayBuffer = await this.readFileAsync(file);
-            const dataBase64 = this.arrayBufferToBase64(
-                arrayBuffer as ArrayBuffer
-            );
-            this.usAvatar = 'data:image/jpg;base64,' + dataBase64;
-        } catch (error) {}
+    hideDetailModal(isClosed: boolean){
+        this.displayDetailModal=!isClosed;
     }
 
     ngOnInit() {
@@ -185,40 +91,19 @@ export class UserlistComponent implements OnInit {
             this.users = data;
             this.loading = false;
         });
-        this.genders = [
-            { label: 'Nam', value: false },
-            { label: 'Nữ', value: true },
-        ];
-        this.reader = new FileReader();
-        this.reader.onload = () => {
-            this.fileBuffer = this.reader?.result;
-        };
-        this.initForm();
+        
     }
 
-    onSubmit() {
-        if (this.formCreate.valid) {
-            this.userService
-                .CreateUser(this.formCreate.value as UserInfo, this.usAvatar)
-                .subscribe((result: MyResponse) => {
-                    console.log(result);
-                    if (result.success) {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Thành công',
-                            detail: 'Thêm người dùng thành công',
-                        });
-                        this.resetForm();
-                        this.display = false;
-                        this.userListState.connect(
-                            this.userService.GetAllUsers(),
-                            (_, curr) => ({
-                                users: curr,
-                            })
-                        );
-                    }
-                });
-        }
+    LoadUser(){
+        this.loading=true;
+        this.userListState.connect(this.userService.GetAllUsers(), (_, curr) => ({
+            users: curr,
+        }));
+        this.loading=false;
+    }
+
+    AddUser(res : any){
+        this.LoadUser();
     }
 
     onSort() {

@@ -32,10 +32,14 @@
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
         </button>
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
+        <div>
+            <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+            <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+                <i class="pi pi-user"></i>
+                <span>Profile</span>
+            </button>
+        </div>
+        
         <button
             class="p-link layout-topbar-button"
             [routerLink]="'/documentation'"

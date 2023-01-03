@@ -8,6 +8,7 @@ import { LayoutService } from '../service/app.layout.service';
 })
 export class AppTopBarComponent {
     items!: MenuItem[];
+    menuItems : MenuItem[]=[];
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -15,5 +16,22 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(public layoutService: LayoutService) {
+        this.menuItems = [
+            {
+                label: 'Đổi mật khẩu', icon: 'pi pi-fw pi-check'
+            },
+            {
+                label: 'Thay đổi hình đại diện', icon: 'pi pi-fw pi-refresh'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Đăng xuất', icon: 'pi pi-sign-out'
+            },
+        ];
+    }
+
+    
 }
