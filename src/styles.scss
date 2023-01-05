@@ -13,3 +13,10 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/badges.scss";
 
 @import "assets/demo/styles/loader.scss";
+
+.myAvatar {
+    border-radius: 50%;
+    border: 5px solid #fff;
+    width: 120px;
+    height: 120px;
+}

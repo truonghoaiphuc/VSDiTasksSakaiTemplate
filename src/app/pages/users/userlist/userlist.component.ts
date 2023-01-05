@@ -13,13 +13,6 @@ import { RxState } from '@rx-angular/state';
 import { Observable, share, shareReplay, switchMap } from 'rxjs';
 import { UserListState, USER_LIST_STATE } from '../states/UserListState.state';
 import { UserInfo } from 'src/app/Models/user.model';
-import { DepartmentService } from 'src/app/Services/department.service';
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    Validators,
-} from '@angular/forms';
 import { MyResponse } from 'src/app/Models/myresponse.model';
 
 interface expandedRows {
@@ -34,7 +27,6 @@ interface expandedRows {
 })
 export class UserlistComponent implements OnInit {
     users: UserInfo[] = [];
-    
 
     customers1: Customer[] = [];
 
@@ -61,7 +53,12 @@ export class UserlistComponent implements OnInit {
     @ViewChild('filter') filter!: ElementRef;
 
     display: boolean = false;
-    displayDetailModal : boolean =false;
+    displayDetailModal: boolean = false;
+    displayUpdateModal: boolean = false;
+    usDetail!: UserInfo;
+    us: any = null;
+
+    modalType: string = 'Add';
 
     get users$(): Observable<UserInfo[]> {
         return this.userListState.select('users').pipe(shareReplay(1));
@@ -70,7 +67,7 @@ export class UserlistComponent implements OnInit {
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private userService: UserService,      
+        private userService: UserService,
         private userListState: RxState<UserListState>
     ) {
         userListState.connect(userService.GetAllUsers(), (_, curr) => ({
@@ -78,12 +75,27 @@ export class UserlistComponent implements OnInit {
         }));
     }
 
-    hideAddModal(isClosed: boolean){
-        this.display=!isClosed;
+    hideAddModal(isClosed: boolean) {
+        this.display = !isClosed;
     }
 
-    hideDetailModal(isClosed: boolean){
-        this.displayDetailModal=!isClosed;
+    hideDetailModal(isClosed: boolean) {
+        this.displayDetailModal = !isClosed;
+    }
+
+    hideUpdateModal(isClosed: boolean) {
+        this.displayUpdateModal = !isClosed;
+    }
+
+    showDetailModal(us: any) {
+        this.us = us;
+        this.displayDetailModal = true;
+    }
+
+    showUpdateModal(us: any) {
+        this.us = us;
+        this.modalType = 'Edit';
+        this.display = true;
     }
 
     ngOnInit() {
@@ -91,18 +103,20 @@ export class UserlistComponent implements OnInit {
             this.users = data;
             this.loading = false;
         });
-        
     }
 
-    LoadUser(){
-        this.loading=true;
-        this.userListState.connect(this.userService.GetAllUsers(), (_, curr) => ({
-            users: curr,
-        }));
-        this.loading=false;
+    LoadUser() {
+        this.loading = true;
+        this.userListState.connect(
+            this.userService.GetAllUsers(),
+            (_, curr) => ({
+                users: curr,
+            })
+        );
+        this.loading = false;
     }
 
-    AddUser(res : any){
+    AddUser(res: any) {
         this.LoadUser();
     }
 

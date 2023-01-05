@@ -27,17 +27,26 @@ export class UserService {
     }
 
     public GetUserDetail(id: number): Observable<UserInfo> {
-        return this._http.get<UserInfo>(`/api/User/${id}`);
+        return this._http.get<UserInfo>(`/api/User/${id}/detail`);
     }
 
     public GetTitles(): Observable<any> {
         return this._http.get<any>('/api/Title');
     }
 
-    public CreateUser(us: UserInfo, avatar: string): Observable<MyResponse> {
+    public CreateOrEditUser(
+        us: UserInfo,
+        avatar: string,
+        editUser: UserInfo
+    ): Observable<MyResponse> {
         us.avatar = avatar;
-        us.status = UserStatus.ACTIVE;
-        return this._http.post<MyResponse>('api/User/add', us);
+        if (editUser) {
+            us.id = editUser.id;
+            return this._http.put<MyResponse>('api/User/update', us);
+        } else {
+            us.status = UserStatus.ACTIVE;
+            return this._http.post<MyResponse>('api/User/add', us);
+        }
     }
 
     public DeleteUser(id: number): Observable<MyResponse> {

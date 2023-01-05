@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
     constructor(
         private roleService: RoleService,
         private userService: UserService,
-        private deptService : DepartmentService,
+        private deptService: DepartmentService,
         @Inject(USER_PAGE_STATE)
         private userPageState: RxState<UserPageState>
     ) {

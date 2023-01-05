@@ -5,6 +5,7 @@ export interface CurrentUser {
 }
 
 export interface UserInfo {
+    id: number;
     userName: string;
     password: string;
     firstName: string;
