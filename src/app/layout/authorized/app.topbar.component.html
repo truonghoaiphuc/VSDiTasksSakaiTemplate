@@ -34,12 +34,15 @@
         </button>
         <div>
             <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
-            <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+            <button
+                class="p-link layout-topbar-button"
+                (click)="menu.toggle($event)"
+            >
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
             </button>
         </div>
-        
+
         <button
             class="p-link layout-topbar-button"
             [routerLink]="'/documentation'"

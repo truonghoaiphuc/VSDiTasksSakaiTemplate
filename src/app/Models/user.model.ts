@@ -24,8 +24,8 @@ export interface UserInfo {
     titleName: string;
     dateOfBirth: Date;
     status: UserStatus;
-    updateDate: Date;
-    updateId?: string;
+    updatedDate: Date;
+    updatedId?: string;
     createdDate: Date;
     createdId?: string;
 }

@@ -8,9 +8,11 @@
     [breakpoints]="{ '960px': '75vw' }"
 >
     <form [formGroup]="formCreate">
-        <div class="card p-fluid p-3">
+        <div class="card p-fluid p-2">
             <div class="addAvatar">
-                <div class="flex align-items-center justify-content-center pt-3">
+                <div
+                    class="flex align-items-center justify-content-center pt-3"
+                >
                     <img class="myAvatar" src="{{ usAvatar }}" />
                 </div>
                 <div
@@ -29,7 +31,7 @@
                     ></p-fileUpload>
                 </div>
             </div>
-            <br>
+            <br />
             <div class="p-formgrid grid">
                 <div class="field col pb-0">
                     <label htmlFor="username">Tên đăng nhập</label>
@@ -37,7 +39,7 @@
                         pInputText
                         id="username"
                         formControlName="userName"
-                        [readonly]="modalType==='Edit'"
+                        [readonly]="modalType === 'Edit'"
                         type="text"
                     />
                     <small
@@ -69,7 +71,7 @@
                     >
                 </div>
             </div>
-            <div *ngIf="modalType==='Add'" class="p-formgrid grid">
+            <div *ngIf="modalType === 'Add'" class="p-formgrid grid">
                 <div class="field col pb-0">
                     <label htmlFor="password">Mật khẩu</label>
                     <p-password
@@ -270,6 +272,7 @@
             icon="pi pi-check"
             (click)="onSubmit()"
             label="Lưu"
+            [loading]="loading"
             [disabled]="formCreate.invalid"
             class="p-button-outlined"
         ></button>

@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { AuthenService } from 'src/app/Services/authen.service';
 import { LayoutService } from '../service/app.layout.service';
 
 @Component({

@@ -109,10 +109,7 @@
                         <td>
                             {{ user.deptName }}
                         </td>
-                        <td>
-                            {{user.roleName}}
-                            <!-- {{ user.createdDate | date : "dd/MM/yyyy HH:mm" }} -->
-                        </td>
+                        <td>{{ user.roleName }}</td>
                         <td>
                             <span
                                 *ngIf="user.status === 0"

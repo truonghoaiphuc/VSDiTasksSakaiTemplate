@@ -36,8 +36,9 @@ export class UsercreateComponent implements OnInit, OnChanges {
     reader: FileReader | undefined;
     fileBuffer: any;
     progressPercent = 0;
+    loading: boolean = false;
 
-    usAvatar: string = "assets/LOGO-VSD.png";
+    usAvatar: string = 'assets/LOGO-VSD.png';
 
     genders: any[] = [];
 
@@ -72,7 +73,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
         this.reader = new FileReader();
         this.reader.onload = () => {
             this.fileBuffer = this.reader?.result;
-        };        
+        };
     }
 
     ngOnChanges(): void {
@@ -80,15 +81,13 @@ export class UsercreateComponent implements OnInit, OnChanges {
             this.modalType == 'Add'
                 ? 'Thêm mới người dùng'
                 : 'Cập nhật thông tin người dùng';
-                this.formCreate.controls["password"].clearValidators();
-        if (this.user) {            
+        if (this.user) {
             this.formCreate.patchValue(this.user);
             const dob = new Date(this.user.dateOfBirth);
             this.formCreate.controls['dateOfBirth'].setValue(dob);
-            this.usAvatar = this.user.avatar;                                    
+            this.usAvatar = this.user.avatar;
         } else {
             this.formCreate.reset();
-            this.formCreate.controls["password"].addValidators(Validators.required);
         }
     }
 
@@ -107,7 +106,6 @@ export class UsercreateComponent implements OnInit, OnChanges {
             deptId: ['', [Validators.required]],
             titleId: ['', [Validators.required]],
             roleId: ['', [Validators.required]],
-            createdId: ['phucth'],
         });
     }
 
@@ -157,32 +155,34 @@ export class UsercreateComponent implements OnInit, OnChanges {
 
     onSubmit() {
         if (this.formCreate.valid) {
+            this.loading = true;
             this.userService
-                    .CreateOrEditUser(
-                        this.formCreate.value as UserInfo,
-                        this.usAvatar,
-                        this.user
-                    )
-                    .subscribe(
-                        (result: MyResponse) => {
-                            this.clickAdd.emit(result);
-                            if (result.success) {
-                                this.closeModal();
-                                this.messageService.add({
-                                    severity: 'success',
-                                    summary: 'Thành công',
-                                    detail: 'Thêm người dùng thành công',
-                                });
-                            }
-                        },
-                        (error) => {
+                .CreateOrEditUser(
+                    this.formCreate.value as UserInfo,
+                    this.usAvatar,
+                    this.user
+                )
+                .subscribe(
+                    (result: MyResponse) => {
+                        this.clickAdd.emit(result);
+                        if (result.success) {
+                            this.closeModal();
                             this.messageService.add({
-                                severity: 'error',
-                                summary: 'Thất bại',
-                                detail: 'Thêm người dùng không thành công',
+                                severity: 'success',
+                                summary: 'Thành công',
+                                detail: 'Thêm người dùng thành công',
                             });
                         }
-                    );
+                    },
+                    (error) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Thất bại',
+                            detail: 'Thêm người dùng không thành công',
+                        });
+                    }
+                );
+            this.loading = false;
         }
     }
 
