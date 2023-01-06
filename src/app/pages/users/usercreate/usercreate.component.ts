@@ -20,7 +20,7 @@ import { UserPageState, USER_PAGE_STATE } from '../states';
 @Component({
     selector: 'app-usercreate',
     templateUrl: './usercreate.component.html',
-    // styleUrls: ['./usercreate.component.scss'],
+    styleUrls: ['./usercreate.component.scss'],
     providers: [MessageService, RxState],
 })
 export class UsercreateComponent implements OnInit, OnChanges {
@@ -37,7 +37,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
     fileBuffer: any;
     progressPercent = 0;
 
-    usAvatar: string = '';
+    usAvatar: string = "assets/LOGO-VSD.png";
 
     genders: any[] = [];
 
@@ -72,7 +72,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
         this.reader = new FileReader();
         this.reader.onload = () => {
             this.fileBuffer = this.reader?.result;
-        };
+        };        
     }
 
     ngOnChanges(): void {
@@ -80,13 +80,15 @@ export class UsercreateComponent implements OnInit, OnChanges {
             this.modalType == 'Add'
                 ? 'Thêm mới người dùng'
                 : 'Cập nhật thông tin người dùng';
-        if (this.user) {
+                this.formCreate.controls["password"].clearValidators();
+        if (this.user) {            
             this.formCreate.patchValue(this.user);
             const dob = new Date(this.user.dateOfBirth);
             this.formCreate.controls['dateOfBirth'].setValue(dob);
-            this.usAvatar = this.user.avatar;
+            this.usAvatar = this.user.avatar;                                    
         } else {
             this.formCreate.reset();
+            this.formCreate.controls["password"].addValidators(Validators.required);
         }
     }
 
@@ -95,8 +97,8 @@ export class UsercreateComponent implements OnInit, OnChanges {
             userName: ['', [Validators.required]],
             firstName: ['', [Validators.required]],
             lastName: ['', [Validators.required]],
-            password: ['', [Validators.required]],
-            cfPassword: ['', [Validators.required]],
+            password: [''],
+            cfPassword: [''],
             dateOfBirth: ['', [Validators.required]],
             gender: [false, [Validators.required]],
             email: [''],
@@ -155,8 +157,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
 
     onSubmit() {
         if (this.formCreate.valid) {
-            if (this.modalType == 'Add') {
-                this.userService
+            this.userService
                     .CreateOrEditUser(
                         this.formCreate.value as UserInfo,
                         this.usAvatar,
@@ -182,8 +183,6 @@ export class UsercreateComponent implements OnInit, OnChanges {
                             });
                         }
                     );
-            } else {
-            }
         }
     }
 

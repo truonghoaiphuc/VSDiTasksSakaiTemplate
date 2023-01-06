@@ -52,9 +52,8 @@ export class UserlistComponent implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
 
-    display: boolean = false;
+    displayAddEditModal: boolean = false;
     displayDetailModal: boolean = false;
-    displayUpdateModal: boolean = false;
     usDetail!: UserInfo;
     us: any = null;
 
@@ -75,16 +74,12 @@ export class UserlistComponent implements OnInit {
         }));
     }
 
-    hideAddModal(isClosed: boolean) {
-        this.display = !isClosed;
+    hideAddEditModal(isClosed: boolean) {
+        this.displayAddEditModal = !isClosed;
     }
 
     hideDetailModal(isClosed: boolean) {
         this.displayDetailModal = !isClosed;
-    }
-
-    hideUpdateModal(isClosed: boolean) {
-        this.displayUpdateModal = !isClosed;
     }
 
     showDetailModal(us: any) {
@@ -92,10 +87,15 @@ export class UserlistComponent implements OnInit {
         this.displayDetailModal = true;
     }
 
+    showAddModal(){
+        this.displayAddEditModal=true;
+        this.modalType='Add';
+        this.us=null;
+    }
     showUpdateModal(us: any) {
         this.us = us;
         this.modalType = 'Edit';
-        this.display = true;
+        this.displayAddEditModal = true;
     }
 
     ngOnInit() {

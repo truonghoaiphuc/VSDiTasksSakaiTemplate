@@ -9,24 +9,27 @@
 >
     <form [formGroup]="formCreate">
         <div class="card p-fluid p-3">
-            <div class="flex align-items-center justify-content-center">
-                <img class="myAvatar" src="{{ usAvatar }}" />
+            <div class="addAvatar">
+                <div class="flex align-items-center justify-content-center pt-3">
+                    <img class="myAvatar" src="{{ usAvatar }}" />
+                </div>
+                <div
+                    class="flex align-items-center justify-content-center pl-3 pr-3 pt-1 pb-3"
+                >
+                    <p-fileUpload
+                        chooseLabel=""
+                        #fileUpload
+                        mode="basic"
+                        name="demo[]"
+                        [customUpload]="true"
+                        accept="image/*"
+                        [maxFileSize]="1000000"
+                        (uploadHandler)="onUpload($event, fileUpload)"
+                        [auto]="true"
+                    ></p-fileUpload>
+                </div>
             </div>
-            <div
-                class="flex align-items-center justify-content-center pl-3 pr-3 pt-1 pb-3"
-            >
-                <p-fileUpload
-                    chooseLabel=""
-                    #fileUpload
-                    mode="basic"
-                    name="demo[]"
-                    [customUpload]="true"
-                    accept="image/*"
-                    [maxFileSize]="1000000"
-                    (uploadHandler)="onUpload($event, fileUpload)"
-                    [auto]="true"
-                ></p-fileUpload>
-            </div>
+            <br>
             <div class="p-formgrid grid">
                 <div class="field col pb-0">
                     <label htmlFor="username">Tên đăng nhập</label>
@@ -34,6 +37,7 @@
                         pInputText
                         id="username"
                         formControlName="userName"
+                        [readonly]="modalType==='Edit'"
                         type="text"
                     />
                     <small
@@ -65,7 +69,7 @@
                     >
                 </div>
             </div>
-            <div class="p-formgrid grid">
+            <div *ngIf="modalType==='Add'" class="p-formgrid grid">
                 <div class="field col pb-0">
                     <label htmlFor="password">Mật khẩu</label>
                     <p-password

@@ -42,6 +42,7 @@ export class UserService {
         us.avatar = avatar;
         if (editUser) {
             us.id = editUser.id;
+            us.status=editUser.status;
             return this._http.put<MyResponse>('api/User/update', us);
         } else {
             us.status = UserStatus.ACTIVE;
