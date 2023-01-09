@@ -170,7 +170,10 @@ export class UsercreateComponent implements OnInit, OnChanges {
                             this.messageService.add({
                                 severity: 'success',
                                 summary: 'Thành công',
-                                detail: 'Thêm người dùng thành công',
+                                detail:
+                                    this.modalType == 'Add'
+                                        ? 'Thêm người dùng thành công'
+                                        : 'Cập nhật thông tin người dùng thành công',
                             });
                         }
                     },
@@ -178,7 +181,10 @@ export class UsercreateComponent implements OnInit, OnChanges {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Thất bại',
-                            detail: 'Thêm người dùng không thành công',
+                            detail:
+                                this.modalType == 'Add'
+                                    ? 'Thêm người dùng thất bại'
+                                    : 'Cập nhật thông tin người dùng thất bại',
                         });
                     }
                 );

@@ -70,9 +70,9 @@ export class UserdetailComponent implements OnInit, OnChanges {
     ngOnChanges(): void {
         if (this.user) {
             console.log(this.user);
-            this.formCreate.patchValue(this.user);
-            const dob = new Date(this.user.dateOfBirth);
-            this.formCreate.controls['dateOfBirth'].setValue(dob);
+            // this.formCreate.patchValue(this.user);
+            // const dob = new Date(this.user.dateOfBirth);
+            // this.formCreate.controls['dateOfBirth'].setValue(dob);
         }
     }
 

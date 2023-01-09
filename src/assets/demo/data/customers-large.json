@@ -63,7 +63,7 @@
             },
             "company": "Feltz Printing Service",
             "date": "2020-09-15",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 37,
             "representative": {
@@ -261,7 +261,7 @@
             },
             "company": "Rousseaux, Michael Esq",
             "date": "2019-06-25",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 90,
             "representative": {
@@ -477,7 +477,7 @@
             },
             "company": "Professional Image Inc",
             "date": "2018-06-24",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 26,
             "representative": {
@@ -495,7 +495,7 @@
             },
             "company": "Sider, Donald C Esq",
             "date": "2016-09-24",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 76,
             "representative": {
@@ -583,7 +583,7 @@
                 "name": "Australia",
                 "code": "au"
             },
-            "company": "Knwz Newsradio",
+            "company": "Knwz activesradio",
             "date": "2018-06-06",
             "status": "inactive",
             "verified": true,
@@ -855,7 +855,7 @@
             },
             "company": "Schroer, Gene E Esq",
             "date": "2019-11-27",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 80,
             "representative": {
@@ -873,7 +873,7 @@
             },
             "company": "Knights Inn",
             "date": "2018-11-24",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 63,
             "representative": {
@@ -891,7 +891,7 @@
             },
             "company": "Bollinger Mach Shp & Shipyard",
             "date": "2018-04-19",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 92,
             "representative": {
@@ -907,7 +907,7 @@
                 "name": "Bolivia",
                 "code": "bo"
             },
-            "company": "Orinda News",
+            "company": "Orinda actives",
             "date": "2019-09-06",
             "status": "inactive",
             "verified": true,
@@ -945,7 +945,7 @@
             },
             "company": "Lowy Limousine Service",
             "date": "2018-04-12",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 31,
             "representative": {
@@ -1017,7 +1017,7 @@
             },
             "company": "Branford Wire & Mfg Co",
             "date": "2019-09-09",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 79,
             "representative": {
@@ -1179,7 +1179,7 @@
             },
             "company": "H H H Enterprises Inc",
             "date": "2018-03-20",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 25,
             "representative": {
@@ -1233,7 +1233,7 @@
             },
             "company": "Robinson, William J Esq",
             "date": "2019-06-08",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 49,
             "representative": {
@@ -1251,7 +1251,7 @@
             },
             "company": "Private Properties",
             "date": "2018-12-06",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 16,
             "representative": {
@@ -1287,7 +1287,7 @@
             },
             "company": "Forging Specialties",
             "date": "2015-02-02",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 16,
             "representative": {
@@ -1557,7 +1557,7 @@
             },
             "company": "Beutelschies & Company",
             "date": "2016-01-22",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 34,
             "representative": {
@@ -1647,7 +1647,7 @@
             },
             "company": "Chinese Translation Resources",
             "date": "2016-02-28",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 44,
             "representative": {
@@ -1683,7 +1683,7 @@
             },
             "company": "Mclaughlin, Luther W Cpa",
             "date": "2017-06-16",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 79,
             "representative": {
@@ -1737,7 +1737,7 @@
             },
             "company": "Logan Memorial Hospital",
             "date": "2016-07-06",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 88,
             "representative": {
@@ -1773,7 +1773,7 @@
             },
             "company": "Industrial Paper Shredders Inc",
             "date": "2018-07-05",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 7,
             "representative": {
@@ -1953,7 +1953,7 @@
             },
             "company": "W Tc Industries Inc",
             "date": "2019-02-16",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 35,
             "representative": {
@@ -1971,7 +1971,7 @@
             },
             "company": "Whitehall Robbins Labs Divsn",
             "date": "2018-03-11",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 81,
             "representative": {
@@ -2277,7 +2277,7 @@
             },
             "company": "Ford Brothers Wholesale Inc",
             "date": "2017-02-18",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 69,
             "representative": {
@@ -2295,7 +2295,7 @@
             },
             "company": "Cambridge Inn",
             "date": "2020-05-12",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 4,
             "representative": {
@@ -2655,7 +2655,7 @@
             },
             "company": "Benoff, Edward Esq",
             "date": "2019-07-04",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 9,
             "representative": {
@@ -2689,9 +2689,9 @@
                 "name": "France",
                 "code": "fr"
             },
-            "company": "New York Life John Thune",
+            "company": "active York Life John Thune",
             "date": "2018-04-03",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 55,
             "representative": {
@@ -2779,7 +2779,7 @@
                 "name": "Indonesia",
                 "code": "id"
             },
-            "company": "Newtec Inc",
+            "company": "activetec Inc",
             "date": "2020-02-09",
             "status": "active",
             "verified": true,
@@ -2835,7 +2835,7 @@
             },
             "company": "Edward S Katz",
             "date": "2018-08-06",
-            "status": "new",
+            "status": "active",
             "verified": false,
             "activity": 67,
             "representative": {
@@ -3411,7 +3411,7 @@
             },
             "company": "Payne Blades & Wellborn Pa",
             "date": "2018-10-11",
-            "status": "new",
+            "status": "active",
             "verified": true,
             "activity": 64,
             "representative": {
@@ -3499,7 +3499,7 @@
                 "name": "Estonia",
                 "code": "ee"
             },
-            "company": "New England Taxidermy",
+            "company": "active England Taxidermy",
             "date": "2019-01-07",
             "status": "active",
             "verified": true,
