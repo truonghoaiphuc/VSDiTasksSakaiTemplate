@@ -31,6 +31,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-user',
                         routerLink: ['/users'],
                     },
+                    {
+                        label: 'Quản lý nhóm người dùng',
+                        icon: 'pi pi-fw pi-users',
+                        routerLink: ['/usergroups'],
+                    },
                     // {
                     //     label: 'PrimeFlex',
                     //     icon: 'pi pi-fw pi-desktop',

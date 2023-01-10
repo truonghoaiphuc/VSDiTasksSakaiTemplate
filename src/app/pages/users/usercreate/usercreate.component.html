@@ -7,258 +7,261 @@
     [style]="{ width: '35vw' }"
     [breakpoints]="{ '960px': '75vw' }"
 >
-    <form [formGroup]="formCreate">
-        <div class="card p-fluid p-2">
-            <div class="addAvatar">
-                <div
-                    class="flex align-items-center justify-content-center pt-3"
-                >
-                    <img class="myAvatar" src="{{ usAvatar }}" />
-                </div>
-                <div
-                    class="flex align-items-center justify-content-center pl-3 pr-3 pt-1 pb-3"
-                >
-                    <p-fileUpload
-                        chooseLabel=""
-                        #fileUpload
-                        mode="basic"
-                        name="demo[]"
-                        [customUpload]="true"
-                        accept="image/*"
-                        [maxFileSize]="1000000"
-                        (uploadHandler)="onUpload($event, fileUpload)"
-                        [auto]="true"
-                    ></p-fileUpload>
-                </div>
-            </div>
-            <br />
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="username">Tên đăng nhập</label>
-                    <input
-                        pInputText
-                        id="username"
-                        formControlName="userName"
-                        [readonly]="modalType === 'Edit'"
-                        type="text"
-                    />
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['userName'].invalid &&
-                            formCreate.controls['userName'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
+    <div>
+        <form [formGroup]="formCreate">
+            <div class="card p-fluid p-2">
+                <div class="addAvatar">
+                    <div
+                        class="flex align-items-center justify-content-center pt-3"
                     >
-                </div>
-                <div class="field col pb-0">
-                    <label htmlFor="roleId">Nhóm</label>
-                    <p-dropdown
-                        [options]="(roles$ | async)!"
-                        placeholder="Chọn nhóm người dùng"
-                        optionLabel="roleName"
-                        optionValue="roleId"
-                        formControlName="roleId"
-                        [showClear]="true"
-                    ></p-dropdown>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['roleId'].invalid &&
-                            formCreate.controls['roleId'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
+                        <img class="myAvatar" src="{{ usAvatar }}" />
+                    </div>
+                    <div
+                        class="flex align-items-center justify-content-center pl-3 pr-3 pt-1 pb-3"
                     >
+                        <p-fileUpload
+                            chooseLabel=""
+                            #fileUpload
+                            mode="basic"
+                            name="demo[]"
+                            [customUpload]="true"
+                            accept="image/*"
+                            [maxFileSize]="1000000"
+                            (uploadHandler)="onUpload($event, fileUpload)"
+                            [auto]="true"
+                        ></p-fileUpload>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="modalType === 'Add'" class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="password">Mật khẩu</label>
-                    <p-password
-                        formControlName="password"
-                        inputId="password"
-                    ></p-password>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['password'].invalid &&
-                            formCreate.controls['password'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
+                <br />
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="username">Tên đăng nhập</label>
+                        <input
+                            pInputText
+                            id="username"
+                            formControlName="userName"
+                            [readonly]="modalType === 'Edit'"
+                            type="text"
+                        />
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['userName'].invalid &&
+                                formCreate.controls['userName'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="roleId">Nhóm</label>
+                        <p-dropdown
+                            [options]="(roles$ | async)!"
+                            placeholder="Chọn nhóm người dùng"
+                            optionLabel="roleName"
+                            optionValue="roleId"
+                            formControlName="roleId"
+                            [showClear]="true"
+                        ></p-dropdown>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['roleId'].invalid &&
+                                formCreate.controls['roleId'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
                 </div>
-                <div class="field col pb-0">
-                    <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
-                    <p-password
-                        inputId="confirmPassword"
-                        formControlName="cfPassword"
-                    ></p-password>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['password'].value !==
-                            formCreate.controls['password'].value
-                        "
-                        >Mật khẩu không trùng khớp</small
-                    >
+                <div *ngIf="modalType === 'Add'" class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="password">Mật khẩu</label>
+                        <p-password
+                            formControlName="password"
+                            inputId="password"
+                        ></p-password>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['password'].invalid &&
+                                formCreate.controls['password'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="confirmPassword"
+                            >Xác nhận Mật khẩu</label
+                        >
+                        <p-password
+                            inputId="confirmPassword"
+                            formControlName="cfPassword"
+                        ></p-password>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['password'].value !==
+                                formCreate.controls['password'].value
+                            "
+                            >Mật khẩu không trùng khớp</small
+                        >
+                    </div>
                 </div>
-            </div>
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="firstName">Họ</label>
-                    <input
-                        pInputText
-                        id="firstName"
-                        formControlName="firstName"
-                        type="text"
-                    />
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['firstName'].invalid &&
-                            formCreate.controls['firstName'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="firstName">Họ</label>
+                        <input
+                            pInputText
+                            id="firstName"
+                            formControlName="firstName"
+                            type="text"
+                        />
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['firstName'].invalid &&
+                                formCreate.controls['firstName'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="lastName">Tên</label>
+                        <input
+                            pInputText
+                            id="lastName"
+                            formControlName="lastName"
+                            type="text"
+                        />
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['lastName'].invalid &&
+                                formCreate.controls['lastName'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
                 </div>
-                <div class="field col pb-0">
-                    <label htmlFor="lastName">Tên</label>
-                    <input
-                        pInputText
-                        id="lastName"
-                        formControlName="lastName"
-                        type="text"
-                    />
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['lastName'].invalid &&
-                            formCreate.controls['lastName'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="dob">Ngày sinh</label>
+                        <p-calendar
+                            inputId="dob"
+                            formControlName="dateOfBirth"
+                            dateFormat="dd/mm/yy"
+                        ></p-calendar>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['dateOfBirth'].invalid &&
+                                formCreate.controls['dateOfBirth'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="gender">Giới tính</label>
+                        <p-dropdown
+                            [options]="genders"
+                            placeholder="Chọn giới tính"
+                            optionLabel="label"
+                            optionValue="value"
+                            formControlName="gender"
+                            [showClear]="true"
+                        ></p-dropdown>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['gender'].invalid &&
+                                formCreate.controls['gender'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
                 </div>
-            </div>
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="dob">Ngày sinh</label>
-                    <p-calendar
-                        inputId="dob"
-                        formControlName="dateOfBirth"
-                        dateFormat="dd/mm/yy"
-                    ></p-calendar>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['dateOfBirth'].invalid &&
-                            formCreate.controls['dateOfBirth'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
-                </div>
-                <div class="field col pb-0">
-                    <label htmlFor="gender">Giới tính</label>
-                    <p-dropdown
-                        [options]="genders"
-                        placeholder="Chọn giới tính"
-                        optionLabel="label"
-                        optionValue="value"
-                        formControlName="gender"
-                        [showClear]="true"
-                    ></p-dropdown>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['gender'].invalid &&
-                            formCreate.controls['gender'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
-                </div>
-            </div>
 
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        pInputText
-                        id="email"
-                        formControlName="email"
-                        type="text"
-                    />
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['email'].invalid &&
-                            formCreate.controls['email'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="email">Email</label>
+                        <input
+                            pInputText
+                            id="email"
+                            formControlName="email"
+                            type="text"
+                        />
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['email'].invalid &&
+                                formCreate.controls['email'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="phonenumber">Số điện thoại</label>
+                        <p-inputMask
+                            mask="(999) 999-9999"
+                            placeholder="(999) 999-9999"
+                            formControlName="phoneNumber"
+                        ></p-inputMask>
+                    </div>
                 </div>
-                <div class="field col pb-0">
-                    <label htmlFor="phonenumber">Số điện thoại</label>
-                    <p-inputMask
-                        mask="(999) 999-9999"
-                        placeholder="(999) 999-9999"
-                        formControlName="phoneNumber"
-                    ></p-inputMask>
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="address">Địa chỉ</label>
+                        <input
+                            pInputText
+                            id="address"
+                            formControlName="address"
+                            type="text"
+                        />
+                    </div>
+                </div>
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="deptCode">Phòng ban</label>
+                        <p-dropdown
+                            [options]="(depts$ | async)!"
+                            placeholder="Chọn phòng ban"
+                            optionLabel="deptName"
+                            optionValue="deptCode"
+                            formControlName="deptId"
+                            [showClear]="true"
+                        >
+                        </p-dropdown>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['deptId'].invalid &&
+                                formCreate.controls['deptId'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                    <div class="field col pb-0">
+                        <label htmlFor="title">Chức danh</label>
+                        <p-dropdown
+                            [options]="(titles$ | async)!"
+                            placeholder="Chọn Chức danh"
+                            optionLabel="titleName"
+                            optionValue="titleId"
+                            formControlName="titleId"
+                            [showClear]="true"
+                        ></p-dropdown>
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['titleId'].invalid &&
+                                formCreate.controls['titleId'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
                 </div>
             </div>
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="address">Địa chỉ</label>
-                    <input
-                        pInputText
-                        id="address"
-                        formControlName="address"
-                        type="text"
-                    />
-                </div>
-            </div>
-            <div class="p-formgrid grid">
-                <div class="field col pb-0">
-                    <label htmlFor="deptCode">Phòng ban</label>
-                    <p-dropdown
-                        [options]="(depts$ | async)!"
-                        placeholder="Chọn phòng ban"
-                        optionLabel="deptName"
-                        optionValue="deptCode"
-                        formControlName="deptId"
-                        [showClear]="true"
-                    >
-                    </p-dropdown>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['deptId'].invalid &&
-                            formCreate.controls['deptId'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
-                </div>
-                <div class="field col pb-0">
-                    <label htmlFor="title">Chức danh</label>
-                    <p-dropdown
-                        [options]="(titles$ | async)!"
-                        placeholder="Chọn Chức danh"
-                        optionLabel="titleName"
-                        optionValue="titleId"
-                        formControlName="titleId"
-                        [showClear]="true"
-                    ></p-dropdown>
-                    <small
-                        class="p-error block"
-                        *ngIf="
-                            formCreate.controls['titleId'].invalid &&
-                            formCreate.controls['titleId'].dirty
-                        "
-                        >Trường này không được bỏ trống</small
-                    >
-                </div>
-            </div>
-        </div>
-    </form>
-
+        </form>
+    </div>
     <ng-template pTemplate="footer">
         <button
             pButton

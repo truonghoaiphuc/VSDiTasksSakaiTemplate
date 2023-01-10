@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { UserlistComponent } from './userlist/userlist.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { UsercreateComponent } from './usercreate/usercreate.component';
-import { UserupdateComponent } from './userupdate/userupdate.component';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -34,7 +33,6 @@ import { AvatarModule } from 'primeng/avatar';
         UserlistComponent,
         UserdetailComponent,
         UsercreateComponent,
-        UserupdateComponent,
     ],
     imports: [
         CommonModule,

@@ -11,68 +11,37 @@
         <div class="left">
             <img src="{{ user?.avatar }}" alt="" />
             <h4>{{ user?.fullName }}</h4>
+            <p>{{ user?.gender ? "Nữ" : "Nam" }}</p>
             <p>{{ user?.titleName }} - {{ user?.deptName }}</p>
+            <p>Nhóm: {{ user?.roleName }}</p>
         </div>
         <div class="right">
             <div class="info">
-                <h3>Information</h3>
-                <div class="info_data">
-                    <h4>Email</h4>
+                <h3>Thông tin</h3>
+                <div>
+                    <h5>Email:</h5>
                     <p>{{ user?.email }}</p>
                 </div>
-                <div class="data">
-                    <h4>Phone</h4>
+                <div>
+                    <h5>Số điện thoại:</h5>
                     <p>{{ user?.phoneNumber }}</p>
+                </div>
+                <div>
+                    <h5>Ngày sinh:</h5>
+                    <p>{{ user?.dateOfBirth | date : "dd/MM/yyyy" }}</p>
+                </div>
+                <div>
+                    <h5>Địa chỉ:</h5>
+                    <p>{{ user?.address }}</p>
+                </div>
+                <div>
+                    <h5>Khởi tạo lúc</h5>
+                    <p>
+                        {{ user?.createdDate | date : "dd/MM/yyyy HH:mm" }} bởi
+                        {{ user?.createdId }}
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="card p-fluid p-2">
-        <div class="addAvatar">
-            <div class="flex align-items-center justify-content-center pt-3">
-                <img class="myAvatar" src="{{ user?.avatar }}" />
-            </div>
-            <div class="flex align-items-center justify-content-center p-0">
-                <h5>{{ user?.fullName }}</h5>
-            </div>
-            <div class="flex align-items-center justify-content-center p-0">
-                {{ user?.titleName }} - {{ user?.deptName }}
-            </div>
-        </div>
-        <div class="userdetail">
-            <span>Địa chỉ: {{ user?.address }}</span>
-            <span>Số điện thoại: {{ user?.phoneNumber }}</span
-            ><br />
-            <span>Email: {{ user?.email }} </span><br />
-            <span>Giới tính: {{ user?.gender }}</span
-            ><br />
-            <span>Ngày sinh: {{ user?.dateOfBirth | date : "dd/MM/yyyy" }}</span
-            ><br />
-            <span>Nhóm: {{ user?.roleName }}</span
-            ><br />
-            <span
-                >Ngày tạo:
-                {{ user?.createdDate | date : "dd/MM/yyyy HH:mm" }}</span
-            ><br />
-            <span>Người tạo: {{ user?.createdId }}</span
-            ><br />
-        </div>
-    </div> -->
-    <ng-template pTemplate="footer">
-        <button
-            pButton
-            icon="pi pi-times"
-            (click)="closeModal()"
-            label="Hủy bỏ"
-            class="p-button-outlined"
-        ></button>
-        <!-- <button
-            pButton
-            icon="pi pi-check"
-            (click)="onSubmit()"
-            label="Thêm"
-            class="p-button-outlined"
-        ></button> -->
-    </ng-template>
 </p-dialog>
