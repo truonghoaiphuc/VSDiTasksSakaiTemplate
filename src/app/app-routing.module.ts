@@ -63,6 +63,13 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                                     (m) => m.UsersModule
                                 ),
                         },
+                        {
+                            path: 'roles',
+                            loadChildren: () =>
+                                import('./pages/role/role.module').then(
+                                    (m) => m.RoleModule
+                                ),
+                        },
                     ],
                 },
                 {

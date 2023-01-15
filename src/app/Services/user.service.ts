@@ -52,7 +52,6 @@ export class UserService {
         editUser: UserInfo
     ): Observable<MyResponse> {
         us.avatar = avatar;
-        console.log(this.loggedInUser);
         if (editUser) {
             us.id = editUser.id;
             us.status = editUser.status;

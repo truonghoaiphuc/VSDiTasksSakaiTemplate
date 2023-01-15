@@ -19,7 +19,7 @@ import { FormBuilder } from '@angular/forms';
 import { RoleComponent } from './pages/role/role.component';
 
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent, UnauthorizedComponent, RoleComponent],
+    declarations: [AppComponent, NotfoundComponent, UnauthorizedComponent],
     imports: [AppRoutingModule, AppLayoutModule, UnauthorizedModule],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
