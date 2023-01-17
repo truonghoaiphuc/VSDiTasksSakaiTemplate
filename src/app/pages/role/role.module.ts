@@ -13,6 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import {CheckboxModule} from 'primeng/checkbox';
+import { RoleAccessListComponent } from './role-access-list/role-access-list.component';
 
 
 
@@ -20,7 +21,8 @@ import {CheckboxModule} from 'primeng/checkbox';
   declarations: [
     AddEditRoleComponent,
     RoleListComponent,
-    RoleComponent
+    RoleComponent,
+    RoleAccessListComponent
   ],
   imports: [
     CommonModule,

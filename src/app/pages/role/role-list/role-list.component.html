@@ -13,7 +13,7 @@
                     type="button"
                     label="Thêm mới"
                     class="p-button-raised"
-                    (click)="showAddModal()"                    
+                    (click)="showAddModal()"
                 ></button>
             </div>
             <p-table
@@ -23,7 +23,7 @@
                 [rows]="10"
                 [loading]="loading"
                 [rowHover]="true"
-                styleClass="p-datatable-gridlines"
+                styleClass="p-datatable-sm"
                 [paginator]="true"
                 [globalFilterFields]="[
                     'roleId',
@@ -69,13 +69,18 @@
                 <ng-template pTemplate="body" let-role>
                     <tr class="max-height:2rem;">
                         <td>
-                            {{role.roleId}}
+                            {{ role.roleId }}
                         </td>
                         <td>
                             {{ role.roleName }}
                         </td>
-                        <td>{{ role.isAdmin }}</td>
-                        <td>{{role.description}}</td>                        
+                        <td>
+                            <p-checkbox
+                                [binary]="true"
+                                [value]="role.isAdmin"
+                            ></p-checkbox>
+                        </td>
+                        <td>{{ role.description }}</td>
                         <td>
                             <div class="flex justify-content-end gap-2">
                                 <button
@@ -92,7 +97,7 @@
                                     type="button"
                                     icon="pi pi-search"
                                     class="p-button-rounded p-button-success p-button-outlined"
-                                    (click)="showDetailModal(role)"
+                                    [routerLink]="['/roles/', role.roleId]"
                                 ></button>
                                 <button
                                     pButton
@@ -100,12 +105,7 @@
                                     type="button"
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger p-button-outlined"
-                                    (click)="
-                                        confirmDelete(
-                                            $event,
-                                            role.roleId
-                                        )
-                                    "
+                                    (click)="confirmDelete($event, role.roleId)"
                                 >
                                     <p-confirmPopup
                                         key="confirmDelete"

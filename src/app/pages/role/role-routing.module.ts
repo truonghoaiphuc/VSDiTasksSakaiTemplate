@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { RoleAccessListComponent } from './role-access-list/role-access-list.component';
 import { RoleComponent } from './role.component';
 
 @NgModule({
@@ -8,6 +9,10 @@ import { RoleComponent } from './role.component';
             {
                 path: '',
                 component: RoleComponent,
+            },
+            {
+                path: ':id',
+                component: RoleAccessListComponent,
             },
             // {
             //     path: ':id',
