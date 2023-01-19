@@ -59,35 +59,35 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 10rem">
+                        <th style="min-width: 20%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Người dùng
                             </div>
                         </th>
-                        <th style="min-width: 14rem">
+                        <th style="min-width: 15%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Phòng
                             </div>
                         </th>
-                        <th style="min-width: 10rem">
+                        <th style="min-width: 10%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Nhóm
                             </div>
                         </th>
-                        <th style="min-width: 6rem">
+                        <th style="min-width: 5%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Trạng thái
                             </div>
                         </th>
-                        <th style="min-width: 12rem"></th>
+                        <th style="min-width: 50%"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-user>
@@ -134,7 +134,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-primary p-button-outlined"
+                                    class="p-button-rounded p-button-primary p-button-text"
                                     (click)="showUpdateModal(user)"
                                 ></button>
                                 <button
@@ -142,7 +142,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-search"
-                                    class="p-button-rounded p-button-success p-button-outlined"
+                                    class="p-button-rounded p-button-success p-button-text"
                                     (click)="showDetailModal(user)"
                                 ></button>
                                 <button
@@ -150,7 +150,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger p-button-outlined"
+                                    class="p-button-rounded p-button-danger p-button-text"
                                     (click)="
                                         confirmDelete(
                                             $event,

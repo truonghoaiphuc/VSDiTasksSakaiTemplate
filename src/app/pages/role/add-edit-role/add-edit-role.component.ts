@@ -49,7 +49,7 @@ export class AddEditRoleComponent implements OnInit, OnChanges {
             this.formCreate.patchValue(this.role);
         } else {
             this.formCreate.reset();
-            //   this.formCreate.controls["isAdmin"].setValue(false);
+            this.formCreate.controls['isAdmin'].setValue(false);
         }
     }
 

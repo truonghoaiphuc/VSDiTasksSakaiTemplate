@@ -24,7 +24,6 @@
                 [loading]="loading"
                 [rowHover]="true"
                 styleClass="p-datatable-sm"
-                [paginator]="true"
                 [globalFilterFields]="[
                     'roleId',
                     'roleName',
@@ -35,35 +34,28 @@
             >
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 10rem">
+                        <th style="min-width: 10%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
-                                RoleId
+                                Mã nhóm
                             </div>
                         </th>
-                        <th style="min-width: 14rem">
+                        <th style="min-width: 30%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Tên nhóm quyền
                             </div>
                         </th>
-                        <th style="min-width: 10rem">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
-                                Là Quản trị
-                            </div>
-                        </th>
-                        <th style="min-width: 6rem">
+                        <th style="min-width: 20%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
                                 Mô tả
                             </div>
                         </th>
-                        <th style="min-width: 12rem"></th>
+                        <th style="min-width: 40%"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-role>
@@ -73,12 +65,12 @@
                         </td>
                         <td>
                             {{ role.roleName }}
-                        </td>
-                        <td>
-                            <p-checkbox
-                                [binary]="true"
-                                [value]="role.isAdmin"
-                            ></p-checkbox>
+                            <i
+                                *ngIf="role.isAdmin"
+                                class="pi pi-check-circle font-bold"
+                                style="color: #2c29f3"
+                            >
+                            </i>
                         </td>
                         <td>{{ role.description }}</td>
                         <td>
@@ -88,7 +80,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-primary p-button-outlined"
+                                    class="p-button-rounded p-button-primary p-button-text"
                                     (click)="showUpdateModal(role)"
                                 ></button>
                                 <button
@@ -96,7 +88,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-search"
-                                    class="p-button-rounded p-button-success p-button-outlined"
+                                    class="p-button-rounded p-button-success p-button-text"
                                     [routerLink]="['/roles/', role.roleId]"
                                 ></button>
                                 <button
@@ -104,7 +96,7 @@
                                     pRipple
                                     type="button"
                                     icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger p-button-outlined"
+                                    class="p-button-rounded p-button-danger p-button-text"
                                     (click)="confirmDelete($event, role.roleId)"
                                 >
                                     <p-confirmPopup

@@ -8,7 +8,15 @@ import {
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { Message, MessageService } from 'primeng/api';
-import { catchError, filter, mergeMap, Observable, of, Subject } from 'rxjs';
+import {
+    catchError,
+    filter,
+    mergeMap,
+    Observable,
+    of,
+    Subject,
+    tap,
+} from 'rxjs';
 import { AuthenService } from 'src/app/Services/authen.service';
 import { UserService } from 'src/app/Services/user.service';
 import { LoginState } from '../state';
@@ -82,6 +90,7 @@ export class LoginComponent implements OnInit {
     }
 
     private connectState(): void {
+        this.loading = true;
         const handler$ = this.onSubmitHandler$.pipe(
             mergeMap((data) =>
                 this._userService
@@ -93,7 +102,7 @@ export class LoginComponent implements OnInit {
                     )
             )
         );
-
+        this.loading = false;
         this._state.connect(handler$, (prev, curr) => ({
             ...prev,
             statusCode: curr.statusCode,
