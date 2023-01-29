@@ -10,9 +10,20 @@ import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { UserService } from 'src/app/Services/user.service';
 import { RxState } from '@rx-angular/state';
-import { Observable, share, shareReplay, switchMap } from 'rxjs';
+import {
+    concatMap,
+    map,
+    mapTo,
+    mergeMap,
+    Observable,
+    share,
+    shareReplay,
+    Subject,
+    switchMap,
+    tap,
+} from 'rxjs';
 import { UserListState, USER_LIST_STATE } from '../states/UserListState.state';
-import { UserInfo } from 'src/app/Models/user.model';
+import { UserInfo, UserStatus } from 'src/app/Models/user.model';
 import { MyResponse } from 'src/app/Models/myresponse.model';
 
 interface expandedRows {
@@ -28,27 +39,10 @@ interface expandedRows {
 export class UserlistComponent implements OnInit {
     users: UserInfo[] = [];
 
-    customers1: Customer[] = [];
-
-    selectedCustomers1: Customer[] = [];
-
-    selectedCustomer: Customer = {};
-
-    representatives: Representative[] = [];
-
     statuses: any[] = [];
 
-    rowGroupMetadata: any;
-
-    expandedRows: expandedRows = {};
-
-    activityValues: number[] = [0, 100];
-
-    isExpanded: boolean = false;
-
-    idFrozen: boolean = false;
-
-    loading: boolean = true;
+    refresh$ = new Subject<void>();
+    onRefreshHandler$ = new Subject<void>();
 
     @ViewChild('filter') filter!: ElementRef;
 
@@ -59,8 +53,16 @@ export class UserlistComponent implements OnInit {
 
     modalType: string = 'Add';
 
-    get users$(): Observable<UserInfo[]> {
+    get userListState$(): Observable<UserListState> {
+        return this.userListState.select();
+    }
+
+    get users$(): Observable<any[] | [] | null> {
         return this.userListState.select('users').pipe(shareReplay(1));
+    }
+
+    get loading$(): Observable<boolean> {
+        return this.userListState.select('loading');
     }
 
     constructor(
@@ -68,10 +70,28 @@ export class UserlistComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private userService: UserService,
         private userListState: RxState<UserListState>
-    ) {
-        userListState.connect(userService.GetAllUsers(), (_, curr) => ({
+    ) {}
+
+    private connectstate(): void {
+        // this.userListState.set({loading:true});
+        const handler$ = this.onRefreshHandler$.pipe(
+            switchMap(() =>
+                this.userService
+                    .GetAllUsers()
+                    .pipe(tap(() => this.userListState.set({ loading: true })))
+            )
+        );
+        this.userListState.connect(handler$, (_, curr) => ({
             users: curr,
+            loading: false,
         }));
+    }
+
+    private manageEvents(): void {
+        this.userListState.hold(this.refresh$, () => {
+            this.onRefreshHandler$.next();
+            this.userListState.set({ loading: true });
+        });
     }
 
     hideAddEditModal(isClosed: boolean) {
@@ -87,10 +107,10 @@ export class UserlistComponent implements OnInit {
         this.displayDetailModal = true;
     }
 
-    showAddModal(){
-        this.displayAddEditModal=true;
-        this.modalType='Add';
-        this.us=null;
+    showAddModal() {
+        this.displayAddEditModal = true;
+        this.modalType = 'Add';
+        this.us = null;
     }
     showUpdateModal(us: any) {
         this.us = us;
@@ -99,59 +119,13 @@ export class UserlistComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.users$.subscribe((data) => {
-            this.users = data;
-            this.loading = false;
-        });
-    }
-
-    LoadUser() {
-        this.loading = true;
-        this.userListState.connect(
-            this.userService.GetAllUsers(),
-            (_, curr) => ({
-                users: curr,
-            })
-        );
-        this.loading = false;
+        this.manageEvents();
+        this.connectstate();
+        this.refresh$.next();
     }
 
     AddUser(res: any) {
-        this.LoadUser();
-    }
-
-    onSort() {
-        this.updateRowGroupMetaData();
-    }
-
-    updateRowGroupMetaData() {
-        this.rowGroupMetadata = {};
-
-        if (this.customers1) {
-            for (let i = 0; i < this.customers1.length; i++) {
-                const rowData = this.customers1[i];
-                const representativeName = rowData?.representative?.name || '';
-
-                if (i === 0) {
-                    this.rowGroupMetadata[representativeName] = {
-                        index: 0,
-                        size: 1,
-                    };
-                } else {
-                    const previousRowData = this.customers1[i - 1];
-                    const previousRowGroup =
-                        previousRowData?.representative?.name;
-                    if (representativeName === previousRowGroup) {
-                        this.rowGroupMetadata[representativeName].size++;
-                    } else {
-                        this.rowGroupMetadata[representativeName] = {
-                            index: i,
-                            size: 1,
-                        };
-                    }
-                }
-            }
-        }
+        this.refresh$.next();
     }
 
     confirmDelete(event: Event, id: number, usname: string) {
@@ -170,22 +144,50 @@ export class UserlistComponent implements OnInit {
                                 summary: 'Thành công',
                                 detail: `Bạn đã xóa thành công người dùng ${usname} có id=${id}`,
                             });
-                            this.userListState.connect(
-                                this.userService.GetAllUsers(),
-                                (_, curr) => ({
-                                    users: curr,
-                                })
-                            );
+                            this.refresh$.next();
                         }
                     });
             },
         });
     }
 
-    formatCurrency(value: number) {
-        return value.toLocaleString('vn-VN', {
-            style: 'currency',
-            currency: 'VND',
+    confirmActive(event: Event, us: UserInfo) {
+        this.confirmationService.confirm({
+            key: 'confirmDelete',
+            target: event.target || new EventTarget(),
+            message: `Bạn muốn ${
+                us.status === UserStatus.ACTIVE ? 'khóa' : 'kích hoạt'
+            } người dùng ${us.userName}?`,
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                console.log('active thành công');
+                this.userService
+                    .ActiveUser(us.id)
+                    .subscribe((result: MyResponse) => {
+                        if (result.success) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Thành công',
+                                detail: `Bạn đã ${
+                                    us.status === UserStatus.ACTIVE
+                                        ? 'khóa'
+                                        : 'kích hoạt'
+                                } người dùng ${us.userName}?`,
+                            });
+                            this.refresh$.next();
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Thất bại',
+                                detail: `Không thể ${
+                                    us.status === UserStatus.ACTIVE
+                                        ? 'khóa'
+                                        : 'kích hoạt'
+                                } người dùng ${us.userName}!`,
+                            });
+                        }
+                    });
+            },
         });
     }
 

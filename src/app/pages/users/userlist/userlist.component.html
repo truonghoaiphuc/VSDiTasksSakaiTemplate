@@ -1,11 +1,23 @@
 <p-toast></p-toast>
-<div *ngIf="loading" class="loader">
+<!-- <div *ngIf="loading$ | async" class="loader">
     <img src="assets/LOGO-VSD.png" />
-</div>
-<div *ngIf="!loading" class="grid">
+</div> -->
+<div class="grid">
     <div class="col-12">
         <div class="card">
-            <div class="flex justify-content-end flex-column pb-3 sm:flex-row">
+            <div
+                class="flex justify-content-end flex-column pb-3 sm:flex-row gap-2"
+            >
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-refresh"
+                    type="button"
+                    [loading]="(loading$ | async)!"
+                    label="Refresh"
+                    class="p-button-raised p-button-info"
+                    (click)="refresh$.next()"
+                ></button>
                 <button
                     pButton
                     pRipple
@@ -16,12 +28,16 @@
                     (click)="showAddModal()"
                 ></button>
             </div>
+            <p-progressBar
+                *ngIf="loading$ | async"
+                mode="indeterminate"
+                [style]="{ height: '6px' }"
+            ></p-progressBar>
             <p-table
                 #dt1
-                [value]="users"
+                [value]="(users$ | async)!"
                 dataKey="id"
                 [rows]="10"
-                [loading]="loading"
                 [rowHover]="true"
                 styleClass="p-datatable-sm"
                 [paginator]="true"
@@ -39,7 +55,7 @@
                     >
                         <button
                             pButton
-                            label="Clear"
+                            label="Xóa điều kiện lọc"
                             class="p-button-outlined mb-2"
                             icon="pi pi-filter-slash"
                             (click)="clear(dt1)"
@@ -51,7 +67,7 @@
                                 type="text"
                                 #filter
                                 (input)="onGlobalFilter(dt1, $event)"
-                                placeholder="Search Keyword"
+                                placeholder="Từ khóa tìm kiếm"
                                 class="w-full"
                             />
                         </span>
@@ -111,7 +127,26 @@
                         </td>
                         <td>{{ user.roleName }}</td>
                         <td>
-                            <span
+                            <p-button
+                                label="{{
+                                    user.status === 0
+                                        ? 'Tạm khóa'
+                                        : 'Đang hoạt động'
+                                }}"
+                                icon="pi {{
+                                    user.status === 0
+                                        ? 'pi-minus-circle'
+                                        : 'pi-check-circle'
+                                }} "
+                                styleClass="p-button-text p-button-{{
+                                    user.status === 0 ? 'warning' : 'success'
+                                }}"
+                                (click)="confirmActive($event, user)"
+                                ><p-confirmPopup
+                                    key="confirmActive"
+                                ></p-confirmPopup
+                            ></p-button>
+                            <!-- <span
                                 *ngIf="user.status === 0"
                                 class="user-badge status-0"
                                 >INACTIVE</span
@@ -125,7 +160,7 @@
                                 *ngIf="user.status === 2"
                                 class="user-badge status-2"
                                 >BANNED</span
-                            >
+                            > -->
                         </td>
                         <td>
                             <div class="flex justify-content-end gap-2">
@@ -174,13 +209,13 @@
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="loadingbody">
+                <!-- <ng-template pTemplate="loadingbody">
                     <tr>
                         <td colspan="8">
                             Loading customers data. Please wait.
                         </td>
                     </tr>
-                </ng-template>
+                </ng-template> -->
             </p-table>
         </div>
     </div>

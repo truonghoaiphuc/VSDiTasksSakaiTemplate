@@ -16,7 +16,6 @@ import { UnauthorizedModule } from './layout/unauthorized/unauthorized.module';
 import { AuthorizeInterceptor } from './interceptors';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-import { RoleComponent } from './pages/role/role.component';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent, UnauthorizedComponent],

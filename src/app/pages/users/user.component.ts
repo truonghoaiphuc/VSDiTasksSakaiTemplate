@@ -11,7 +11,7 @@ import { DepartmentService } from 'src/app/Services/department.service';
     // styleUrls: ['./userlist.component.scss'],
     providers: [RxState],
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
     constructor(
         private roleService: RoleService,
         private userService: UserService,
@@ -25,10 +25,8 @@ export class UserComponent implements OnInit {
         userPageState.connect(userService.GetTitles(), (_, curr) => ({
             titles: curr,
         }));
-        userPageState.connect(deptService.GetDepts(), (_, curr) => ({
+        userPageState.connect(deptService.GetDeptsWithComp(), (_, curr) => ({
             depts: curr,
         }));
     }
-
-    ngOnInit(): void {}
 }

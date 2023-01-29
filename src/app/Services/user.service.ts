@@ -65,6 +65,10 @@ export class UserService {
     }
 
     public DeleteUser(id: number): Observable<MyResponse> {
-        return this._http.delete<MyResponse>(`/api/User/${id}`);
+        return this._http.put<MyResponse>(`/api/User/${id}/delete`, id);
+    }
+
+    public ActiveUser(id: number): Observable<MyResponse> {
+        return this._http.put<MyResponse>(`/api/User/${id}/active`, id);
     }
 }

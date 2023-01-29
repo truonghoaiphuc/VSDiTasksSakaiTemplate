@@ -14,6 +14,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import {CheckboxModule} from 'primeng/checkbox';
 import { RoleAccessListComponent } from './role-access-list/role-access-list.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { RippleModule } from 'primeng/ripple';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
@@ -36,7 +45,16 @@ import { RoleAccessListComponent } from './role-access-list/role-access-list.com
     DialogModule,
     InputTextModule,
     InputSwitchModule,
-    CheckboxModule
+    CheckboxModule,
+    ProgressBarModule,
+        FileUploadModule,
+        RippleModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
   ]
 })
 export class RoleModule { }

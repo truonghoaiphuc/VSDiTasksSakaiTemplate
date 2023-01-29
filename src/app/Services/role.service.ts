@@ -30,8 +30,9 @@ export class RoleService {
     }
 
     public DeleteRole(id: string): Observable<MyResponse> {
-        return this._httpClient.delete<MyResponse>(
-            `/api/Role/delete?code=${id}`
+        return this._httpClient.put<MyResponse>(
+            `/api/Role/delete?code=${id}`,
+            id
         );
     }
 }

@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { CurrentUser } from 'src/app/Models/user.model';
@@ -22,11 +23,13 @@ export class AppTopBarComponent {
 
     constructor(
         public layoutService: LayoutService,
-        private authenService: AuthenService
+        private authenService: AuthenService,
+        private router: Router
     ) {
         this.authenService.getCurrentUser().subscribe((us) => {
             this.loggedInUser = us;
         });
+
         this.menuItems = [
             {
                 label: 'Đổi mật khẩu',
@@ -44,5 +47,11 @@ export class AppTopBarComponent {
                 icon: 'pi pi-sign-out',
             },
         ];
+    }
+
+    logOut() {
+        this.authenService.logout();
+        this.loggedInUser = null;
+        this.router.navigate(['/login']);
     }
 }

@@ -1,2 +1,108 @@
-<p>role-access-list works!</p>
-<span>{{ role }}</span>
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-arrow-left"
+                            type="button"
+                            label="Quay về"
+                            class="p-button-raised p-button-info mr-2"
+                            routerLink="/roles"
+                        ></button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="my-2">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-refresh"
+                            type="button"
+                            label="Refresh"
+                            class="p-button-raised p-button-info mr-2"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-check"
+                            type="button"
+                            label="Cập nhật"
+                            class="p-button-raised p-button-primary"
+                        ></button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table
+                #dt
+                [value]="products"
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [globalFilterFields]="[
+                    'name',
+                    'country.name',
+                    'representative.name',
+                    'status'
+                ]"
+                [(selection)]="selectedProducts"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+            >
+                <ng-template pTemplate="caption">
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                    >
+                        <h5 class="m-0">Phân quyền cho nhóm:</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Search..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Chức năng</th>
+                        <th>Truy cập</th>
+                        <th>Thêm</th>
+                        <th>Sửa</th>
+                        <th>Xóa</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td style="width: 30%; min-width: 10rem">
+                            <span class="p-column-title">Code</span>
+                            {{ product.code || product.id }}
+                        </td>
+                        <td style="width: 10%; min-width: 10rem">
+                            <p-checkbox [binary]="true"></p-checkbox>
+                        </td>
+                        <td style="width: 10%; min-width: 8rem">
+                            <p-checkbox [binary]="true"></p-checkbox>
+                        </td>
+                        <td style="width: 10%; min-width: 10rem">
+                            <p-checkbox [binary]="true"></p-checkbox>
+                        </td>
+                        <td style="width: 10%; min-width: 10rem">
+                            <p-checkbox [binary]="true"></p-checkbox>
+                        </td>
+                        <td style="width: 25%; min-width: 10rem"></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

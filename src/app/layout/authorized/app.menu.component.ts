@@ -24,6 +24,51 @@ export class AppMenuComponent implements OnInit {
                 ],
             },
             {
+                label: 'Chức năng',
+                items: [
+                    {
+                        label: 'Phân việc',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/dashboard'],
+                    },
+                    {
+                        label: 'Công việc của tôi',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/dashboard'],
+                    },
+                ],
+            },
+            {
+                label: 'Danh mục',
+                items: [
+                    {
+                        label: 'Công ty',
+                        icon: 'pi pi-fw pi-sitemap',
+                        routerLink: ['/companies'],
+                    },
+                    {
+                        label: 'Phòng ban',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/departments'],
+                    },
+                    {
+                        label: 'Chức danh',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/Title'],
+                    },
+                    {
+                        label: 'Ngày nghỉ',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/Title'],
+                    },
+                    {
+                        label: 'Loại thực hiện quyền',
+                        icon: 'pi pi-fw pi-home',
+                        routerLink: ['/Title'],
+                    },
+                ],
+            },
+            {
                 label: 'Hệ thống',
                 items: [
                     {
@@ -36,12 +81,6 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-users',
                         routerLink: ['/roles'],
                     },
-                    // {
-                    //     label: 'PrimeFlex',
-                    //     icon: 'pi pi-fw pi-desktop',
-                    //     url: ['https://www.primefaces.org/primeflex/'],
-                    //     target: '_blank',
-                    // },
                 ],
             },
             {
@@ -289,22 +328,22 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
-            {
-                label: 'Get Started',
-                items: [
-                    {
-                        label: 'Documentation',
-                        icon: 'pi pi-fw pi-question',
-                        routerLink: ['/documentation'],
-                    },
-                    {
-                        label: 'View Source',
-                        icon: 'pi pi-fw pi-search',
-                        url: ['https://github.com/primefaces/sakai-ng'],
-                        target: '_blank',
-                    },
-                ],
-            },
+            // {
+            //     label: 'Get Started',
+            //     items: [
+            //         {
+            //             label: 'Documentation',
+            //             icon: 'pi pi-fw pi-question',
+            //             routerLink: ['/documentation'],
+            //         },
+            //         {
+            //             label: 'View Source',
+            //             icon: 'pi pi-fw pi-search',
+            //             url: ['https://github.com/primefaces/sakai-ng'],
+            //             target: '_blank',
+            //         },
+            //     ],
+            // },
         ];
     }
 }

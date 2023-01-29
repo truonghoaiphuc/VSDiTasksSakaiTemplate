@@ -8,6 +8,8 @@
     border-top: 5px solid #e74c3c;
     position: relative;
     animation: load 2s linear infinite;
+    z-index: 1000;
+    overflow: visible;
 }
 
 .loader::before,

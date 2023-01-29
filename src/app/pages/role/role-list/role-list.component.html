@@ -1,11 +1,20 @@
 <p-toast></p-toast>
-<div *ngIf="loading" class="loader">
+<!-- <div *ngIf="loading" class="loader">
     <img src="assets/LOGO-VSD.png" />
-</div>
-<div *ngIf="!loading" class="grid">
+</div> -->
+<div class="grid">
     <div class="col-12">
         <div class="card">
-            <div class="flex justify-content-end flex-column pb-3 sm:flex-row">
+            <div class="flex justify-content-end flex-column pb-3 sm:flex-row gap-2">
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-refresh"
+                    type="button"
+                    label="Refresh"
+                    class="p-button-raised p-button-info"
+                    (click)="refresh$.next()"
+                ></button>
                 <button
                     pButton
                     pRipple
@@ -16,12 +25,14 @@
                     (click)="showAddModal()"
                 ></button>
             </div>
+
+            <p-progressBar *ngIf="(loading$ |async)" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+
             <p-table
                 #dt1
-                [value]="roles"
+                [value]="(roles$ | async)!"
                 dataKey="id"
                 [rows]="10"
-                [loading]="loading"
                 [rowHover]="true"
                 styleClass="p-datatable-sm"
                 [globalFilterFields]="[
@@ -32,6 +43,7 @@
                 ]"
                 responsiveLayout="scroll"
             >
+            
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 10%">
@@ -110,14 +122,7 @@
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td colspan="8">
-                            Không có người dùng nào được tìm thấy.
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="loadingbody">
-                    <tr>
-                        <td colspan="8">
-                            Loading customers data. Please wait.
+                            Không có nhóm người dùng nào được tìm thấy.
                         </td>
                     </tr>
                 </ng-template>
@@ -133,8 +138,3 @@
     (clickClose)="hideAddEditModal($event)"
     (clickAdd)="AddUser($event)"
 ></app-add-edit-role>
-<!-- <app-userdetail
-    [displayDetailModal]="displayDetailModal"
-    [user]="us"
-    (clickClose)="hideDetailModal($event)"
-></app-userdetail> -->

@@ -48,6 +48,11 @@ export class LoginComponent implements OnInit {
     get state$(): Observable<LoginState> {
         return this._state.select();
     }
+
+    get loading$():Observable<boolean>{
+        return this._state.select('loading');
+    }
+
     constructor(
         private _userService: UserService,
         private _authService: AuthenService,
@@ -55,7 +60,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private _state: RxState<LoginState>
     ) {
-        this._state.set({ hasError: false });
+        this._state.set({ hasError: false , loading:false});
         this.msgs = [
             {
                 severity: 'error',
@@ -81,7 +86,7 @@ export class LoginComponent implements OnInit {
             if (!valid) {
                 return;
             }
-
+            this._state.set({loading:true});
             this.onSubmitHandler$.next({
                 userName: this.loginForm.controls['userName'].value,
                 password: this.loginForm.controls['password'].value,
@@ -90,11 +95,11 @@ export class LoginComponent implements OnInit {
     }
 
     private connectState(): void {
-        this.loading = true;
         const handler$ = this.onSubmitHandler$.pipe(
-            mergeMap((data) =>
+            mergeMap((data) =>            
                 this._userService
                     .login(data.userName, data.password)
+                    .pipe(tap(()=>this._state.set({loading:true})))                    
                     .pipe(
                         catchError((err: { statusCode: string }) =>
                             of({ statusCode: err.statusCode, token: '' })
@@ -102,12 +107,12 @@ export class LoginComponent implements OnInit {
                     )
             )
         );
-        this.loading = false;
         this._state.connect(handler$, (prev, curr) => ({
             ...prev,
             statusCode: curr.statusCode,
             hasError: !curr.token,
             token: curr.token,
+            loading:false
         }));
 
         this._state

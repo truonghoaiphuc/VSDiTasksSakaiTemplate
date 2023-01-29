@@ -7,7 +7,7 @@
     [style]="{ width: '35vw' }"
     [breakpoints]="{ '960px': '75vw' }"
 >
-    <div>
+    <ng-template pTemplate="content">
         <form [formGroup]="formCreate">
             <div class="card p-fluid p-2">
                 <div class="addAvatar">
@@ -32,7 +32,8 @@
                         ></p-fileUpload>
                     </div>
                 </div>
-                <br />
+            </div>
+            <div class="card p-fluid p-2 z-5">
                 <div class="p-formgrid grid">
                     <div class="field col pb-0">
                         <label htmlFor="username">Tên đăng nhập</label>
@@ -56,12 +57,18 @@
                         <label htmlFor="roleId">Nhóm</label>
                         <p-dropdown
                             [options]="(roles$ | async)!"
+                            formControlName="roleId"
                             placeholder="Chọn nhóm người dùng"
                             optionLabel="roleName"
                             optionValue="roleId"
-                            formControlName="roleId"
+                            [filter]="true"
+                            filterBy="roleName"
                             [showClear]="true"
-                        ></p-dropdown>
+                        >
+                            <ng-template let-role pTemplate="item">
+                                <div>{{ role.roleName }}</div>
+                            </ng-template>
+                        </p-dropdown>
                         <small
                             class="p-error block"
                             *ngIf="
@@ -81,10 +88,7 @@
                         ></p-password>
                         <small
                             class="p-error block"
-                            *ngIf="
-                                formCreate.controls['password'].invalid &&
-                                formCreate.controls['password'].dirty
-                            "
+                            *ngIf="formCreate.controls['password'].value"
                             >Trường này không được bỏ trống</small
                         >
                     </div>
@@ -100,7 +104,7 @@
                             class="p-error block"
                             *ngIf="
                                 formCreate.controls['password'].value !==
-                                formCreate.controls['password'].value
+                                formCreate.controls['cfPassword'].value
                             "
                             >Mật khẩu không trùng khớp</small
                         >
@@ -224,10 +228,13 @@
                         <p-dropdown
                             [options]="(depts$ | async)!"
                             placeholder="Chọn phòng ban"
-                            optionLabel="deptName"
-                            optionValue="deptCode"
                             formControlName="deptId"
                             [showClear]="true"
+                            [group]="true"
+                            optionLabel="deptName"
+                            optionValue="deptCode"
+                            optionGroupLabel="compName"
+                            optionGroupChildren="depts"
                         >
                         </p-dropdown>
                         <small
@@ -261,7 +268,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </ng-template>
     <ng-template pTemplate="footer">
         <button
             pButton

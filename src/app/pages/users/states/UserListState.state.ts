@@ -4,6 +4,7 @@ import { UserInfo } from 'src/app/Models/user.model';
 
 export interface UserListState {
     users: UserInfo[];
+    loading:boolean;
 }
 
 export const USER_LIST_STATE = new InjectionToken<RxState<UserListState>>(

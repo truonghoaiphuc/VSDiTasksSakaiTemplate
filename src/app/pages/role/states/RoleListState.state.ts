@@ -4,6 +4,7 @@ import { Role } from 'src/app/Models/role.model';
 
 export interface RoleListState {
     roles: Role[];
+    loading: boolean;
 }
 
 export const ROLE_LIST_STATE = new InjectionToken<RxState<RoleListState>>(

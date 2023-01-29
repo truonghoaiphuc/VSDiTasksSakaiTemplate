@@ -36,13 +36,13 @@ export class UsercreateComponent implements OnInit, OnChanges {
     reader: FileReader | undefined;
     fileBuffer: any;
     progressPercent = 0;
-    loading: boolean = false;
 
     usAvatar: string = 'assets/LOGO-VSD.png';
 
     genders: any[] = [];
 
     headerCaption: string = '';
+    loading: boolean = false;
 
     get roles$(): Observable<Role[]> {
         return this.userPageState.select('roles').pipe(shareReplay(1));
@@ -63,6 +63,10 @@ export class UsercreateComponent implements OnInit, OnChanges {
         private userPageState: RxState<UserPageState>
     ) {
         this.initForm();
+    }
+
+    changeDept($event: any) {
+        console.log($event);
     }
 
     ngOnInit(): void {
@@ -106,6 +110,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
             deptId: ['', [Validators.required]],
             titleId: ['', [Validators.required]],
             roleId: ['', [Validators.required]],
+            createdId: ['phucth'],
         });
     }
 
@@ -153,43 +158,60 @@ export class UsercreateComponent implements OnInit, OnChanges {
         } catch (error) {}
     }
 
+    validatePassword(): boolean {
+        return (
+            this.formCreate.controls['password'].value ===
+            this.formCreate.controls['cfPassword'].value
+        );
+    }
     onSubmit() {
-        if (this.formCreate.valid) {
-            this.loading = true;
-            this.userService
-                .CreateOrEditUser(
-                    this.formCreate.value as UserInfo,
-                    this.usAvatar,
-                    this.user
-                )
-                .subscribe(
-                    (result: MyResponse) => {
-                        this.clickAdd.emit(result);
-                        if (result.success) {
-                            this.closeModal();
-                            this.messageService.add({
-                                severity: 'success',
-                                summary: 'Thành công',
-                                detail:
-                                    this.modalType == 'Add'
-                                        ? 'Thêm người dùng thành công'
-                                        : 'Cập nhật thông tin người dùng thành công',
-                            });
-                        }
-                    },
-                    (error) => {
+        if (!this.formCreate.valid) return;
+        if (
+            this.formCreate.controls['password'].value !==
+                this.formCreate.controls['cfPassword'].value &&
+            this.modalType === 'Add'
+        ) {
+            this.messageService.add({
+                severity: 'warning',
+                summary: 'Thông báo',
+                detail: 'Mật khẩu không trùng khớp!!!',
+            });
+            return;
+        }
+        this.loading = true;
+        this.userService
+            .CreateOrEditUser(
+                this.formCreate.value as UserInfo,
+                this.usAvatar,
+                this.user
+            )
+            .subscribe(
+                (result: MyResponse) => {
+                    this.clickAdd.emit(result);
+                    if (result.success) {
+                        this.closeModal();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Thành công',
+                            detail: 'Thêm người dùng thành công',
+                        });
+                    } else {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Thất bại',
-                            detail:
-                                this.modalType == 'Add'
-                                    ? 'Thêm người dùng thất bại'
-                                    : 'Cập nhật thông tin người dùng thất bại',
+                            detail: 'Người dùng đã tồn tại trong hệ thống',
                         });
                     }
-                );
-            this.loading = false;
-        }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Thất bại',
+                        detail: 'Thêm người dùng không thành công',
+                    });
+                }
+            );
+        this.loading = false;
     }
 
     closeModal() {

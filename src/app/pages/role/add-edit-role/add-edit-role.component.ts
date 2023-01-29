@@ -19,7 +19,7 @@ import { RoleService } from 'src/app/Services/role.service';
     templateUrl: './add-edit-role.component.html',
     styleUrls: ['./add-edit-role.component.scss'],
 })
-export class AddEditRoleComponent implements OnInit, OnChanges {
+export class AddEditRoleComponent implements OnChanges {
     @Input() displayAddModal: boolean = true;
     @Input() modalType: string = 'Add';
     @Input() role: any = null;
@@ -37,8 +37,6 @@ export class AddEditRoleComponent implements OnInit, OnChanges {
     ) {
         this.initForm();
     }
-
-    ngOnInit(): void {}
 
     ngOnChanges(): void {
         this.headerCaption =

@@ -1,7 +1,9 @@
+import { CurrencyPipe } from '@angular/common';
+import { preserveWhitespacesDefault } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable, shareReplay } from 'rxjs';
+import { Observable, shareReplay, Subject, switchMap, tap } from 'rxjs';
 import { MyResponse } from 'src/app/Models/myresponse.model';
 import { Role } from 'src/app/Models/role.model';
 import { RoleService } from 'src/app/Services/role.service';
@@ -24,8 +26,15 @@ export class RoleListComponent implements OnInit {
 
   modalType: string = 'Add';
 
+  refresh$ = new Subject<void>();
+  onRefreshHandler$ = new Subject<void>();
+
   get roles$(): Observable<Role[]> {
       return this.roleListState.select('roles').pipe(shareReplay(1));
+  }
+
+  get loading$(): Observable<boolean>{
+    return this.roleListState.select('loading')
   }
 
   constructor(
@@ -33,10 +42,26 @@ export class RoleListComponent implements OnInit {
       private confirmationService: ConfirmationService,
       private roleService: RoleService,
       private roleListState: RxState<RoleListState>
-  ) {
-      roleListState.connect(roleService.GetRoles(), (_, curr) => ({
-          roles: curr,
-      }));
+  ) {      
+  }
+
+  private connectState():void{
+    const handler$ = this.onRefreshHandler$.pipe(switchMap(()=> (
+        this.roleService.GetRoles()
+        .pipe(tap(()=>this.roleListState.set({loading:true})))
+    )));
+    this.roleListState.connect(handler$, (prev, curr)=>({
+        ...prev,
+        roles:curr,
+        loading:false
+    }));
+  }
+
+  private manageEvent():void{
+    this.roleListState.hold(this.refresh$,()=>{
+        this.onRefreshHandler$.next();
+        this.roleListState.set({loading:true});
+    });
   }
 
   hideAddEditModal(isClosed: boolean) {
@@ -64,27 +89,15 @@ export class RoleListComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.roles$.subscribe((data) => {
-          this.roles = data;
-          this.loading = false;
-      });
-  }
-
-  LoadUser() {
-      this.loading = true;
-      this.roleListState.connect(
-          this.roleService.GetRoles(),
-          (_, curr) => ({
-              roles: curr,
-          })
-      );
-      this.loading = false;
+    this.manageEvent();
+    this.connectState();
+    this.refresh$.next();
   }
 
   AddUser(res: any) {
-      this.LoadUser();
+      this.refresh$.next();
   }
-
+//write a function using rxstate in angular
   confirmDelete(event: Event, id: string) {
       this.confirmationService.confirm({
           key: 'confirmDelete',
@@ -101,12 +114,7 @@ export class RoleListComponent implements OnInit {
                               summary: 'Thành công',
                               detail: `Bạn đã xóa thành công người dùng ${id}`,
                           });
-                          this.roleListState.connect(
-                              this.roleService.GetRoles(),
-                              (_, curr) => ({
-                                  roles: curr,
-                              })
-                          );
+                          this.refresh$.next();
                       }
                   });
           },
