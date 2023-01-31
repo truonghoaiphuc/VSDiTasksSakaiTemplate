@@ -70,6 +70,27 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                                     (m) => m.RoleModule
                                 ),
                         },
+                        {
+                            path: 'companies',
+                            loadChildren: () =>
+                                import('./pages/company/company.module').then(
+                                    (m) => m.CompanyModule
+                                ),
+                        },
+                        {
+                            path: 'departments',
+                            loadChildren: () =>
+                                import(
+                                    './pages/department/department.module'
+                                ).then((m) => m.DepartmentModule),
+                        },
+                        {
+                            path: 'titles',
+                            loadChildren: () =>
+                                import('./pages/title/title.module').then(
+                                    (m) => m.TitleModule
+                                ),
+                        },
                     ],
                 },
                 {

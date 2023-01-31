@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 import { RoleAccessListComponent } from './role-access-list/role-access-list.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -24,37 +24,32 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 
-
-
 @NgModule({
-  declarations: [
-    AddEditRoleComponent,
-    RoleListComponent,
-    RoleComponent,
-    RoleAccessListComponent
-  ],
-  imports: [
-    CommonModule,
-    RoleRoutingModule,
-    ToastModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TableModule,
-    ButtonModule,
-    ConfirmPopupModule,
-    DialogModule,
-    InputTextModule,
-    InputSwitchModule,
-    CheckboxModule,
-    ProgressBarModule,
-        FileUploadModule,
+    declarations: [
+        AddEditRoleComponent,
+        RoleListComponent,
+        RoleComponent,
+        RoleAccessListComponent,
+    ],
+    imports: [
+        CommonModule,
+        RoleRoutingModule,
+        ToastModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TableModule,
+        ButtonModule,
+        ConfirmPopupModule,
+        DialogModule,
+        InputTextModule,
+        InputSwitchModule,
+        CheckboxModule,
+        ProgressBarModule,
         RippleModule,
         ToolbarModule,
-        RatingModule,
         InputTextareaModule,
         DropdownModule,
-        RadioButtonModule,
         InputNumberModule,
-  ]
+    ],
 })
-export class RoleModule { }
+export class RoleModule {}

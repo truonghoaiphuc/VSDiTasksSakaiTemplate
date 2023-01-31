@@ -2,65 +2,63 @@ import { Component, OnInit } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable, shareReplay, Subject, switchMap, tap } from 'rxjs';
+import { Department } from 'src/app/Models/department.model';
 import { MyResponse } from 'src/app/Models/myresponse.model';
-import { Role } from 'src/app/Models/role.model';
-import { RoleService } from 'src/app/Services/role.service';
-import { RoleListState } from '../states';
+import { DepartmentService } from 'src/app/Services/department.service';
+import { DepartmentListState } from '../states';
+
+type NewType = ConfirmationService;
 
 @Component({
-    selector: 'app-role-list',
-    templateUrl: './role-list.component.html',
-    styleUrls: ['./role-list.component.scss'],
+    selector: 'app-department-list',
+    templateUrl: './department-list.component.html',
+    styleUrls: ['./department-list.component.scss'],
     providers: [MessageService, ConfirmationService, RxState],
 })
-export class RoleListComponent implements OnInit {
-    roles: Role[] = [];
-
-    loading: boolean = true;
-
+export class DepartmentListComponent implements OnInit {
     displayAddEditModal: boolean = false;
     displayDetailModal: boolean = false;
-    role: any = null;
+    department: any = null;
 
     modalType: string = 'Add';
 
     refresh$ = new Subject<void>();
     onRefreshHandler$ = new Subject<void>();
 
-    get roles$(): Observable<Role[]> {
-        return this.roleListState.select('roles').pipe(shareReplay(1));
+    get departments$(): Observable<Department[]> {
+        return this.deptListState.select('departments').pipe(shareReplay(1));
     }
 
     get loading$(): Observable<boolean> {
-        return this.roleListState.select('loading');
+        return this.deptListState.select('loading');
     }
 
     constructor(
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private roleService: RoleService,
-        private roleListState: RxState<RoleListState>
+        private deptService: DepartmentService,
+        private deptListState: RxState<DepartmentListState>
     ) {}
 
     private connectState(): void {
         const handler$ = this.onRefreshHandler$.pipe(
             switchMap(() =>
-                this.roleService
-                    .GetRoles()
-                    .pipe(tap(() => this.roleListState.set({ loading: true })))
+                this.deptService
+                    .GetDepts()
+                    .pipe(tap(() => this.deptListState.set({ loading: true })))
             )
         );
-        this.roleListState.connect(handler$, (prev, curr) => ({
+        this.deptListState.connect(handler$, (prev, curr) => ({
             ...prev,
-            roles: curr,
+            departments: curr,
             loading: false,
         }));
     }
 
     private manageEvent(): void {
-        this.roleListState.hold(this.refresh$, () => {
+        this.deptListState.hold(this.refresh$, () => {
             this.onRefreshHandler$.next();
-            this.roleListState.set({ loading: true });
+            this.deptListState.set({ loading: true });
         });
     }
 
@@ -68,22 +66,13 @@ export class RoleListComponent implements OnInit {
         this.displayAddEditModal = !isClosed;
     }
 
-    hideDetailModal(isClosed: boolean) {
-        this.displayDetailModal = !isClosed;
-    }
-
-    showDetailModal(rl: any) {
-        this.role = rl;
-        this.displayDetailModal = true;
-    }
-
     showAddModal() {
         this.displayAddEditModal = true;
         this.modalType = 'Add';
-        this.role = null;
+        this.department = null;
     }
     showUpdateModal(rl: any) {
-        this.role = rl;
+        this.department = rl;
         this.modalType = 'Edit';
         this.displayAddEditModal = true;
     }
@@ -94,25 +83,25 @@ export class RoleListComponent implements OnInit {
         this.refresh$.next();
     }
 
-    AddUser(res: any) {
+    AddDepartment(res: any) {
         this.refresh$.next();
     }
     //write a function using rxstate in angular
-    confirmDelete(event: Event, id: string) {
+    confirmDelete(event: Event, dept: Department) {
         this.confirmationService.confirm({
             key: 'confirmDelete',
             target: event.target || new EventTarget(),
-            message: `Bạn muốn xóa nhóm người dùng ${id}?`,
+            message: `Bạn muốn xóa công ty ${dept.deptName}?`,
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.roleService
-                    .DeleteRole(id)
+                this.deptService
+                    .DeleteDepartment(dept)
                     .subscribe((result: MyResponse) => {
                         if (result.success) {
                             this.messageService.add({
                                 severity: 'success',
                                 summary: 'Thành công',
-                                detail: `Bạn đã xóa thành công người dùng ${id}`,
+                                detail: `Bạn đã xóa thành công ${dept.deptName}`,
                             });
                             this.refresh$.next();
                         }

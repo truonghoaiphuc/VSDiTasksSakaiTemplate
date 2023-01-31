@@ -42,9 +42,6 @@ export class UserService {
     public GetUserPermission(userName: string): Observable<any> {
         return this._http.get<any>(`/api/User/${userName}`);
     }
-    public GetTitles(): Observable<any> {
-        return this._http.get<any>('/api/Title');
-    }
 
     public CreateOrEditUser(
         us: UserInfo,

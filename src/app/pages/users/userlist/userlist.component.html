@@ -139,28 +139,13 @@
                                         : 'pi-check-circle'
                                 }} "
                                 styleClass="p-button-text p-button-{{
-                                    user.status === 0 ? 'warning' : 'success'
+                                    user.status === 0 ? 'danger' : 'success'
                                 }}"
                                 (click)="confirmActive($event, user)"
                                 ><p-confirmPopup
                                     key="confirmActive"
                                 ></p-confirmPopup
                             ></p-button>
-                            <!-- <span
-                                *ngIf="user.status === 0"
-                                class="user-badge status-0"
-                                >INACTIVE</span
-                            >
-                            <span
-                                *ngIf="user.status === 1"
-                                class="user-badge status-1"
-                                >ACTIVE</span
-                            >
-                            <span
-                                *ngIf="user.status === 2"
-                                class="user-badge status-2"
-                                >BANNED</span
-                            > -->
                         </td>
                         <td>
                             <div class="flex justify-content-end gap-2">

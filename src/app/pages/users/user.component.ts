@@ -3,7 +3,8 @@ import { RoleService } from 'src/app/Services/role.service';
 import { RxState } from '@rx-angular/state';
 import { UserPageState, USER_PAGE_STATE } from './states';
 import { UserService } from 'src/app/Services/user.service';
-import { DepartmentService } from 'src/app/Services/department.service';
+import { CompanyService } from 'src/app/Services/company.service';
+import { TitleService } from 'src/app/Services/title.service';
 
 @Component({
     selector: 'app-users',
@@ -15,17 +16,18 @@ export class UserComponent {
     constructor(
         private roleService: RoleService,
         private userService: UserService,
-        private deptService: DepartmentService,
+        private compService: CompanyService,
+        private titleService: TitleService,
         @Inject(USER_PAGE_STATE)
         private userPageState: RxState<UserPageState>
     ) {
         userPageState.connect(roleService.GetRoles(), (_, curr) => ({
             roles: curr,
         }));
-        userPageState.connect(userService.GetTitles(), (_, curr) => ({
+        userPageState.connect(titleService.GetTitles(), (_, curr) => ({
             titles: curr,
         }));
-        userPageState.connect(deptService.GetDeptsWithComp(), (_, curr) => ({
+        userPageState.connect(compService.GetCompanyAll(), (_, curr) => ({
             depts: curr,
         }));
     }
