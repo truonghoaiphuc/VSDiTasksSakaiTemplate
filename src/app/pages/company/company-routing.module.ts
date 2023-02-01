@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TitleComponent } from '../title/title.component';
 import { CompanyComponent } from './company.component';
 
 @NgModule({

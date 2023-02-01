@@ -39,7 +39,7 @@
                 [rows]="10"
                 [rowHover]="true"
                 styleClass="p-datatable-sm"
-                [globalFilterFields]="['TitleId', 'TitleName', 'description']"
+                [globalFilterFields]="['compCode', 'compName', 'compAddres']"
                 responsiveLayout="scroll"
             >
                 <ng-template pTemplate="header">
@@ -48,14 +48,14 @@
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
-                                Mã chức danh
+                                Mã Công ty
                             </div>
                         </th>
                         <th style="min-width: 20%">
                             <div
                                 class="flex justify-content-between align-items-center"
                             >
-                                Tên chức danh
+                                Tên Công ty
                             </div>
                         </th>
                         <th style="min-width: 30%">
@@ -71,10 +71,10 @@
                 <ng-template pTemplate="body" let-tit>
                     <tr class="max-height:2rem;">
                         <td>
-                            {{ tit.TitleId }}
+                            {{ tit.titleId }}
                         </td>
                         <td>
-                            {{ tit.TitleName }}
+                            {{ tit.titleName }}
                         </td>
                         <td>{{ tit.description }}</td>
                         <td>

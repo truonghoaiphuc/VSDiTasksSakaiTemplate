@@ -8,8 +8,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Company } from 'src/app/Models/company.model';
 import { Department } from 'src/app/Models/department.model';
 import { MyResponse } from 'src/app/Models/myresponse.model';
+import { CompanyService } from 'src/app/Services/company.service';
 import { DepartmentService } from 'src/app/Services/department.service';
 
 @Component({
@@ -25,14 +27,19 @@ export class AddeditdepartmentComponent implements OnChanges {
     @Output() clickAdd: EventEmitter<any> = new EventEmitter<any>();
 
     formCreate!: FormGroup;
+    companies!: Company[];
 
     headerCaption: string = '';
 
     constructor(
         private formBuilder: FormBuilder,
         private messageService: MessageService,
-        private deptService: DepartmentService
+        private deptService: DepartmentService,
+        private compService: CompanyService
     ) {
+        this.compService
+            .GetCompanies()
+            .subscribe((data) => (this.companies = data));
         this.initForm();
     }
 

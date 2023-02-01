@@ -42,7 +42,7 @@ export class CompanyListComponent implements OnInit {
         const handler$ = this.onRefreshHandler$.pipe(
             switchMap(() =>
                 this.compService
-                    .GetCompanies()
+                    .GetCompanyAll()
                     .pipe(tap(() => this.compListState.set({ loading: true })))
             )
         );

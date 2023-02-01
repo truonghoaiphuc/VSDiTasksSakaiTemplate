@@ -8,13 +8,14 @@ import { TitleService } from 'src/app/Services/title.service';
 import { TitleListState } from '../states';
 
 @Component({
-    selector: 'app-title-list',
-    templateUrl: './title-list.component.html',
-    styleUrls: ['./title-list.component.scss'],
+    selector: 'app-titles-list',
+    templateUrl: './titles-list.component.html',
+    styleUrls: ['./titles-list.component.scss'],
     providers: [MessageService, ConfirmationService, RxState],
 })
-export class TitleListComponent implements OnInit {
+export class TitlesListComponent implements OnInit {
     displayAddEditModal: boolean = false;
+    displayDetailModal: boolean = false;
     title: any = null;
 
     modalType: string = 'Add';
@@ -47,7 +48,7 @@ export class TitleListComponent implements OnInit {
         );
         this.titleListState.connect(handler$, (prev, curr) => ({
             ...prev,
-            companies: curr,
+            titles: curr,
             loading: false,
         }));
     }
@@ -62,6 +63,15 @@ export class TitleListComponent implements OnInit {
     hideAddEditModal(isClosed: boolean) {
         this.displayAddEditModal = !isClosed;
     }
+
+    // hideDetailModal(isClosed: boolean) {
+    //     this.displayDetailModal = !isClosed;
+    // }
+
+    // showDetailModal(rl: any) {
+    //     this.company = rl;
+    //     this.displayDetailModal = true;
+    // }
 
     showAddModal() {
         this.displayAddEditModal = true;
@@ -84,21 +94,21 @@ export class TitleListComponent implements OnInit {
         this.refresh$.next();
     }
     //write a function using rxstate in angular
-    confirmDelete(event: Event, title: Title) {
+    confirmDelete(event: Event, tit: Title) {
         this.confirmationService.confirm({
             key: 'confirmDelete',
             target: event.target || new EventTarget(),
-            message: `Bạn muốn xóa chức danh ${title.TitleName}?`,
+            message: `Bạn muốn xóa công ty ${tit.TitleName}?`,
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.titleService
-                    .DeleteTitle(title)
+                    .DeleteTitle(tit)
                     .subscribe((result: MyResponse) => {
                         if (result.success) {
                             this.messageService.add({
                                 severity: 'success',
                                 summary: 'Thành công',
-                                detail: `Bạn đã xóa thành công ${title.TitleName}`,
+                                detail: `Bạn đã xóa thành công ${tit.TitleName}`,
                             });
                             this.refresh$.next();
                         }

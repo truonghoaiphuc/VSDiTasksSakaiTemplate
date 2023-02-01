@@ -87,8 +87,8 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                         {
                             path: 'titles',
                             loadChildren: () =>
-                                import('./pages/title/title.module').then(
-                                    (m) => m.TitleModule
+                                import('./pages/titles/titles.module').then(
+                                    (m) => m.TitlesModule
                                 ),
                         },
                     ],

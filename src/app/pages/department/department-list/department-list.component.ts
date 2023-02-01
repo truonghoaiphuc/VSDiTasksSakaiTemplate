@@ -91,7 +91,7 @@ export class DepartmentListComponent implements OnInit {
         this.confirmationService.confirm({
             key: 'confirmDelete',
             target: event.target || new EventTarget(),
-            message: `Bạn muốn xóa công ty ${dept.deptName}?`,
+            message: `Bạn muốn xóa ${dept.deptName}?`,
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.deptService

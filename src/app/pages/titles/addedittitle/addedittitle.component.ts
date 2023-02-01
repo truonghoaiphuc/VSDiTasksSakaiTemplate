@@ -16,7 +16,7 @@ import { TitleService } from 'src/app/Services/title.service';
     templateUrl: './addedittitle.component.html',
     styleUrls: ['./addedittitle.component.scss'],
 })
-export class AddedittitleComponent implements OnChanges {
+export class AddEditTitleComponent implements OnChanges {
     @Input() displayAddModal: boolean = true;
     @Input() modalType: string = 'Add';
     @Input() title: any = null;
@@ -39,7 +39,7 @@ export class AddedittitleComponent implements OnChanges {
         this.headerCaption =
             this.modalType == 'Add'
                 ? 'Thêm mới Chức danh'
-                : 'Cập nhật thông tin Chức danh';
+                : 'Cập nhật thông tin chức danh';
         if (this.title) {
             this.formCreate.patchValue(this.title);
         } else {

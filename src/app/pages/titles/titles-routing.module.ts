@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TitleComponent } from './title.component';
+import { TitlesComponent } from './titles.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
                 path: '',
-                component: TitleComponent,
+                component: TitlesComponent,
             },
             { path: '**', redirectTo: '/notfound' },
         ]),
     ],
     exports: [RouterModule],
 })
-export class TitleRoutingModule {}
+export class TitlesRoutingModule {}

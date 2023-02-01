@@ -32,50 +32,20 @@
                 [style]="{ height: '6px' }"
             ></p-progressBar>
 
-            <p-table
-                #dt1
-                [value]="(companies$ | async)!"
-                dataKey="id"
-                [rows]="10"
-                [rowHover]="true"
-                styleClass="p-datatable-sm"
-                [globalFilterFields]="['compCode', 'compName', 'compAddres']"
-                responsiveLayout="scroll"
-            >
+            <p-table [value]="(companies$ | async)!" dataKey="name">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 10%">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
-                                Mã Công ty
-                            </div>
-                        </th>
-                        <th style="min-width: 20%">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
-                                Tên Công ty
-                            </div>
-                        </th>
-                        <th style="min-width: 30%">
-                            <div
-                                class="flex justify-content-between align-items-center"
-                            >
-                                Địa chỉ
-                            </div>
-                        </th>
-                        <th style="min-width: 40%"></th>
+                        <th style="width: 5rem"></th>
+                        <th style="min-width: 10%">Mã công ty</th>
+                        <th style="min-width: 20%">Tên công ty</th>
+                        <th style="min-width: 30%">Địa chỉ</th>
+                        <th style="min-width: 35%"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-comp>
-                    <tr class="max-height:2rem;">
-                        <td>
-                            {{ comp.compCode }}
-                        </td>
-                        <td>
-                            {{ comp.compName }}
-                        </td>
+                    <tr>
+                        <td>{{ comp.compCode }}</td>
+                        <td>{{ comp.compName }}</td>
                         <td>{{ comp.compAddress }}</td>
                         <td>
                             <div class="flex justify-content-end gap-2">
@@ -105,9 +75,7 @@
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">
-                            Không có nhóm người dùng nào được tìm thấy.
-                        </td>
+                        <td colspan="6">Không tìm thấy công ty nào.</td>
                     </tr>
                 </ng-template>
             </p-table>

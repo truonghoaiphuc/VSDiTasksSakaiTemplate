@@ -14,6 +14,7 @@ import { RippleModule } from 'primeng/ripple';
 import { DepartmentComponent } from './department.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { AddeditdepartmentComponent } from './addeditdepartment/addeditdepartment.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { AddeditdepartmentComponent } from './addeditdepartment/addeditdepartmen
         InputTextModule,
         ProgressBarModule,
         RippleModule,
+        DropdownModule,
     ],
 })
 export class DepartmentModule {}

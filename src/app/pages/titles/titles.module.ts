@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddedittitleComponent } from './addedittitle/addedittitle.component';
-import { TitleListComponent } from './title-list/title-list.component';
-import { TitleRoutingModule } from './title-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -13,12 +10,16 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
+import { TitlesRoutingModule } from './titles-routing.module';
+import { TitlesComponent } from './titles.component';
+import { TitlesListComponent } from './titles-list/titles-list.component';
+import { AddEditTitleComponent } from './addedittitle/addedittitle.component';
 
 @NgModule({
-    declarations: [AddedittitleComponent, TitleListComponent],
+    declarations: [TitlesComponent, TitlesListComponent, AddEditTitleComponent],
     imports: [
         CommonModule,
-        TitleRoutingModule,
+        TitlesRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         InputTextModule,
@@ -35,4 +36,4 @@ import { RippleModule } from 'primeng/ripple';
         RippleModule,
     ],
 })
-export class TitleModule {}
+export class TitlesModule {}
