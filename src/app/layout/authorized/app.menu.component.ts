@@ -64,7 +64,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Loại thực hiện quyền',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/Title'],
+                        routerLink: ['/catypes'],
                     },
                 ],
             },

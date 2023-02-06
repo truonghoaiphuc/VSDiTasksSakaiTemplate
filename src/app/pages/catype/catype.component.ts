@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-catype',
-  templateUrl: './catype.component.html',
-  styleUrls: ['./catype.component.scss']
+    selector: 'app-catype',
+    templateUrl: './catype.component.html',
+    styleUrls: ['./catype.component.scss'],
 })
-export class CATypeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class CATypeComponent {
+    constructor() {}
 }

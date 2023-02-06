@@ -1,1 +1,67 @@
-<p>addedit-catype works!</p>
+<p-dialog
+    header="{{ headerCaption }}"
+    [(visible)]="displayAddModal"
+    [modal]="true"
+    (onHide)="closeModal()"
+    showEffect="fade"
+    [style]="{ width: '25vw' }"
+    [breakpoints]="{ '960px': '75vw' }"
+>
+    <div>
+        <form [formGroup]="formCreate">
+            <div class="card p-fluid p-2">
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="caName">Tên loại quyền</label>
+                        <input
+                            pInputText
+                            id="caName"
+                            formControlName="caName"
+                            [readonly]="modalType === 'Edit'"
+                            type="text"
+                        />
+                        <small
+                            class="p-error block"
+                            *ngIf="
+                                formCreate.controls['caName'].invalid &&
+                                formCreate.controls['caName'].dirty
+                            "
+                            >Trường này không được bỏ trống</small
+                        >
+                    </div>
+                </div>
+                <div class="p-formgrid grid">
+                    <div class="field col pb-0">
+                        <label htmlFor="description">Mô tả</label>
+                        <textarea
+                            id="description"
+                            type="text"
+                            rows="4"
+                            formControlName="description"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            icon="pi pi-times"
+            (click)="closeModal()"
+            label="Hủy bỏ"
+            class="p-button-outlined"
+        ></button>
+        <button
+            pButton
+            icon="pi pi-check"
+            (click)="onSubmit()"
+            label="Lưu"
+            [disabled]="formCreate.invalid"
+            class="p-button-outlined"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

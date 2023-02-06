@@ -91,6 +91,13 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                                     (m) => m.TitlesModule
                                 ),
                         },
+                        {
+                            path: 'catypes',
+                            loadChildren: () =>
+                                import('./pages/catype/catype.module').then(
+                                    (m) => m.CATypeModule
+                                ),
+                        },
                     ],
                 },
                 {
