@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Observable, shareReplay, Subject, switchMap, tap } from 'rxjs';
+import {
+    Observable,
+    shareReplay,
+    Subject,
+    switchMap,
+    tap,
+    withLatestFrom,
+} from 'rxjs';
 import { CAType } from 'src/app/Models/catype.model';
 import { MyResponse } from 'src/app/Models/myresponse.model';
 import { CaTypeService } from 'src/app/Services/ca-type.service';
