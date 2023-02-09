@@ -98,6 +98,13 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                                     (m) => m.CATypeModule
                                 ),
                         },
+                        {
+                            path: 'itasks',
+                            loadChildren: () =>
+                                import('./pages/i-tasks/iTasks.module').then(
+                                    (m) => m.iTasksModule
+                                ),
+                        },
                     ],
                 },
                 {

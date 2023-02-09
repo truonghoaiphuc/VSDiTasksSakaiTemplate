@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Công việc của tôi',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/dashboard'],
+                        routerLink: ['/itasks'],
                     },
                 ],
             },

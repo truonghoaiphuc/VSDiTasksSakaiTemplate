@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="container">
+        <p-card
+            header="Advanced Card"
+            subheader="Card Subheader"
+            styleClass="p-card-shadow"
+        >
+            <ng-template pTemplate="header">
+                <div class="cardHeader pending">
+                    Chờ xử lý
+                    <p-badge
+                        value="4"
+                        size="large"
+                        severity="warning"
+                        styleClass="ml-2"
+                    ></p-badge>
+                </div>
+            </ng-template>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-plus"
+                    type="button"
+                    label="Thêm mới công việc"
+                    class="p-button-secondary p-button-text"
+                ></button>
+            </ng-template>
+        </p-card>
+        <p-card
+            header="Advanced Card"
+            subheader="Card Subheader"
+            styleClass="p-card-shadow"
+        >
+            <ng-template pTemplate="header">
+                <div class="cardHeader processing">
+                    Đang xử lý
+                    <p-badge
+                        value="4"
+                        size="large"
+                        severity="info"
+                        styleClass="ml-2"
+                    ></p-badge>
+                </div>
+            </ng-template>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+                <p-button label="Save" icon="pi pi-check"></p-button>
+                <p-button
+                    label="Cancel"
+                    icon="pi pi-times"
+                    styleClass="p-button-secondary"
+                    [style]="{ 'margin-left': '.5em' }"
+                ></p-button>
+            </ng-template>
+        </p-card>
+        <p-card
+            header="Advanced Card"
+            subheader="Card Subheader"
+            styleClass="p-card-shadow"
+        >
+            <ng-template pTemplate="header">
+                <div class="cardHeader done">
+                    Đã hoàn thành
+                    <p-badge
+                        value="4"
+                        size="large"
+                        severity="danger"
+                        styleClass="ml-2"
+                    ></p-badge>
+                </div>
+            </ng-template>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas!
+            </p>
+            <ng-template pTemplate="footer">
+                <p-button label="Save" icon="pi pi-check"></p-button>
+                <p-button
+                    label="Cancel"
+                    icon="pi pi-times"
+                    styleClass="p-button-secondary"
+                    [style]="{ 'margin-left': '.5em' }"
+                ></p-button>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
