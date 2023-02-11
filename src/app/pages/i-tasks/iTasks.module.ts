@@ -15,6 +15,7 @@ import { ITasksComponent } from './i-tasks.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { CardModule } from 'primeng/card';
 import { BadgeModule } from 'primeng/badge';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [ITasksComponent, MyTasksComponent],
@@ -37,6 +38,7 @@ import { BadgeModule } from 'primeng/badge';
         ProgressBarModule,
         RippleModule,
         BadgeModule,
+        DragDropModule,
     ],
 })
 export class iTasksModule {}

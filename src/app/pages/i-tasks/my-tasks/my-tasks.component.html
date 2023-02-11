@@ -1,10 +1,6 @@
 <div class="card">
-    <div class="container">
-        <p-card
-            header="Advanced Card"
-            subheader="Card Subheader"
-            styleClass="p-card-shadow"
-        >
+    <div class="container" cdkDropListGroup>
+        <p-card styleClass="p-card-shadow">
             <ng-template pTemplate="header">
                 <div class="cardHeader pending">
                     Chờ xử lý
@@ -16,12 +12,16 @@
                     ></p-badge>
                 </div>
             </ng-template>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa
-                ratione quam perferendis esse, cupiditate neque quas!
-            </p>
+            <div
+                cdkDropList
+                [cdkDropListData]="todo"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+            >
+                <div class="example-box" *ngFor="let item of todo" cdkDrag>
+                    {{ item }}
+                </div>
+            </div>
             <ng-template pTemplate="footer">
                 <button
                     pButton
@@ -33,11 +33,7 @@
                 ></button>
             </ng-template>
         </p-card>
-        <p-card
-            header="Advanced Card"
-            subheader="Card Subheader"
-            styleClass="p-card-shadow"
-        >
+        <p-card styleClass="p-card-shadow">
             <ng-template pTemplate="header">
                 <div class="cardHeader processing">
                     Đang xử lý
@@ -49,13 +45,17 @@
                     ></p-badge>
                 </div>
             </ng-template>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa
-                ratione quam perferendis esse, cupiditate neque quas!
-            </p>
-            <ng-template pTemplate="footer">
+            <div
+                cdkDropList
+                [cdkDropListData]="done"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+            >
+                <div class="example-box" *ngFor="let item of done" cdkDrag>
+                    {{ item }}
+                </div>
+            </div>
+            <!-- <ng-template pTemplate="footer">
                 <p-button label="Save" icon="pi pi-check"></p-button>
                 <p-button
                     label="Cancel"
@@ -63,13 +63,9 @@
                     styleClass="p-button-secondary"
                     [style]="{ 'margin-left': '.5em' }"
                 ></p-button>
-            </ng-template>
+            </ng-template> -->
         </p-card>
-        <p-card
-            header="Advanced Card"
-            subheader="Card Subheader"
-            styleClass="p-card-shadow"
-        >
+        <p-card styleClass="p-card-shadow">
             <ng-template pTemplate="header">
                 <div class="cardHeader done">
                     Đã hoàn thành
@@ -81,13 +77,17 @@
                     ></p-badge>
                 </div>
             </ng-template>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa
-                ratione quam perferendis esse, cupiditate neque quas!
-            </p>
-            <ng-template pTemplate="footer">
+            <div
+                cdkDropList
+                [cdkDropListData]="done"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)"
+            >
+                <div class="example-box" *ngFor="let item of done" cdkDrag>
+                    {{ item }}
+                </div>
+            </div>
+            <!-- <ng-template pTemplate="footer">
                 <p-button label="Save" icon="pi pi-check"></p-button>
                 <p-button
                     label="Cancel"
@@ -95,7 +95,7 @@
                     styleClass="p-button-secondary"
                     [style]="{ 'margin-left': '.5em' }"
                 ></p-button>
-            </ng-template>
+            </ng-template> -->
         </p-card>
     </div>
 </div>
