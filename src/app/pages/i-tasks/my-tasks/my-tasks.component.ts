@@ -28,7 +28,7 @@ export class MyTasksComponent implements OnInit {
     ngOnInit(): void {}
 
     todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
+    inProgress = ['Go to bed'];
     done = [
         'Get up',
         'Brush teeth',
