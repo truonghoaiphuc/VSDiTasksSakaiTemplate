@@ -53,11 +53,12 @@
     cursor: move;
     background: white;
     font-size: 14px;
+    &:hover {
+        font-size: 20px;
+        font-style: bold;
+    }
 }
 
-.example-box :hover {
-    translate: scale(2);
-}
 .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
