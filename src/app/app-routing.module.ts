@@ -1,9 +1,10 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
+// import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AuthGuard } from './Guards/auth.guard';
 import { LoginComponent } from './layout/unauthorized/login/login.component';
 import { AppLayoutComponent } from './layout/authorized/app.layout.component';
+import { PagenotfoundComponent } from './layout/unauthorized/pagenotfound/pagenotfound.component';
 
 @NgModule({
     imports: [
@@ -125,7 +126,7 @@ import { AppLayoutComponent } from './layout/authorized/app.layout.component';
                             (m) => m.LandingModule
                         ),
                 },
-                { path: 'notfound', component: NotfoundComponent },
+                { path: 'notfound', component: PagenotfoundComponent },
                 { path: '**', redirectTo: '/notfound' },
             ],
             {

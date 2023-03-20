@@ -23,6 +23,8 @@ export class MyTasksComponent implements OnInit {
         },
     ];
 
+    isHovered: boolean = false;
+
     constructor() {}
 
     ngOnInit(): void {}

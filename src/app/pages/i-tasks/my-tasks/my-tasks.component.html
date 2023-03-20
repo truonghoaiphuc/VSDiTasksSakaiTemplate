@@ -18,8 +18,21 @@
                 class="example-list"
                 (cdkDropListDropped)="drop($event)"
             >
-                <div class="example-box" *ngFor="let item of todo" cdkDrag>
+                <div
+                    class="example-box"
+                    *ngFor="let item of todo"
+                    cdkDrag
+                    (mouseover)="isHovered = true"
+                    (mouseout)="isHovered = false"
+                >
                     {{ item }}
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        type="button"
+                        [ngClass]="{ visibility: isHovered }"
+                    ></button>
                 </div>
             </div>
             <ng-template pTemplate="footer">
