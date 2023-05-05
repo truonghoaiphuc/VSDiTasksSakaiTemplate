@@ -179,6 +179,7 @@ export class UsercreateComponent implements OnInit, OnChanges {
             return;
         }
         this.loading = true;
+        console.log(this.formCreate.value);
         this.userService
             .CreateOrEditUser(
                 this.formCreate.value as UserInfo,

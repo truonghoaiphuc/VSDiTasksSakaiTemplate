@@ -115,5 +115,6 @@ export class CompanyListComponent implements OnInit {
                     });
             },
         });
+        // this.deleteConfirm$.next(comp);
     }
 }
