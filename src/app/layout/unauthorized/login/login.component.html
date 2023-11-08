@@ -1,4 +1,4 @@
-<div
+<!-- <div
     class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
 >
     <div class="flex flex-column align-items-center justify-content-center">
@@ -23,12 +23,6 @@
                 style="border-radius: 53px"
             >
                 <div class="text-center mb-5">
-                    <!-- <img
-                        src="assets/demo/images/login/avatar.png"
-                        alt="Image"
-                        height="50"
-                        class="mb-3"
-                    /> -->
                     <div class="text-900 text-3xl font-medium mb-3">
                         Hệ thống quản lý công việc
                     </div>
@@ -99,6 +93,52 @@
                         </div>
                     </form>
                 </ng-container>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="login-wrapper">
+    <!-- <img
+        src="assets/LOGO-VSD.png"
+        alt="Sakai logo"
+        class="mb-3 w-10rem flex-shrink-0"
+    /> -->
+    <div class="container" id="container">
+        <div class="form-container login-container">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit.next()">
+                <h1>Đăng nhập</h1>
+                <input
+                    type="text"
+                    placeholder="Tên đăng nhập"
+                    formControlName="userName"
+                />
+                <input
+                    type="password"
+                    placeholder="Mật khẩu"
+                    formControlName="password"
+                />
+                <div class="content">
+                    <div class="checkbox">
+                        <input type="checkbox" name="checkbox" id="checkbox" />
+                        <label>Remember me</label>
+                    </div>
+                    <div class="pass-link">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+                <button
+                    pButton
+                    [loading]="(loading$ | async)!"
+                    pRipple
+                    type="submit"
+                >
+                    Đăng nhập
+                </button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right"></div>
             </div>
         </div>
     </div>

@@ -24,16 +24,7 @@ import { LoginState } from '../state';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styles: [
-        `
-            :host ::ng-deep .pi-eye,
-            :host ::ng-deep .pi-eye-slash {
-                transform: scale(1.6);
-                margin-right: 1rem;
-                color: var(--primary-color) !important;
-            }
-        `,
-    ],
+    styleUrls: ['./login.component.scss'],
     providers: [RxState, MessageService],
 })
 export class LoginComponent implements OnInit {
@@ -49,7 +40,7 @@ export class LoginComponent implements OnInit {
         return this._state.select();
     }
 
-    get loading$():Observable<boolean>{
+    get loading$(): Observable<boolean> {
         return this._state.select('loading');
     }
 
@@ -60,7 +51,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private _state: RxState<LoginState>
     ) {
-        this._state.set({ hasError: false , loading:false});
+        this._state.set({ hasError: false, loading: false });
         this.msgs = [
             {
                 severity: 'error',
@@ -86,7 +77,7 @@ export class LoginComponent implements OnInit {
             if (!valid) {
                 return;
             }
-            this._state.set({loading:true});
+            this._state.set({ loading: true });
             this.onSubmitHandler$.next({
                 userName: this.loginForm.controls['userName'].value,
                 password: this.loginForm.controls['password'].value,
@@ -96,10 +87,10 @@ export class LoginComponent implements OnInit {
 
     private connectState(): void {
         const handler$ = this.onSubmitHandler$.pipe(
-            mergeMap((data) =>            
+            mergeMap((data) =>
                 this._userService
                     .login(data.userName, data.password)
-                    .pipe(tap(()=>this._state.set({loading:true})))                    
+                    .pipe(tap(() => this._state.set({ loading: true })))
                     .pipe(
                         catchError((err: { statusCode: string }) =>
                             of({ statusCode: err.statusCode, token: '' })
@@ -112,7 +103,7 @@ export class LoginComponent implements OnInit {
             statusCode: curr.statusCode,
             hasError: !curr.token,
             token: curr.token,
-            loading:false
+            loading: false,
         }));
 
         this._state
