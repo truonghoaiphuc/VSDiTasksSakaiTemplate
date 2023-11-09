@@ -4,7 +4,7 @@ const target = env.ASPNETCORE_HTTPS_PORT
     ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}`
     : env.ASPNETCORE_HTTPS_URLS
     ? env.ASPNETCORE_HTTPS_URLS.split(";")[0]
-    : "https://127.0.0.1:44342";
+    : "https://127.0.0.1:44343";
 
 console.log("target proxy:", target);
 
@@ -17,7 +17,7 @@ const PROXY_CONFIG = [
             Connection: "keep-alive",
         },
         pathRewrite: {
-            "^/api": "https://127.0.0.1:44342/api",
+            "^/api": "https://127.0.0.1:44343/api",
         },
     },
 ];

@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.msgs = [
             {
                 severity: 'error',
-                summary: 'Đăng nhập thất bại',
+                summary: 'Thất bại',
                 detail: 'Tên đăng nhập hoặc mật khẩu không hợp lệ',
             },
         ];

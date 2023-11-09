@@ -105,36 +105,51 @@
     /> -->
     <div class="container" id="container">
         <div class="form-container login-container">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit.next()">
-                <h1>Đăng nhập</h1>
-                <input
-                    type="text"
-                    placeholder="Tên đăng nhập"
-                    formControlName="userName"
-                />
-                <input
-                    type="password"
-                    placeholder="Mật khẩu"
-                    formControlName="password"
-                />
-                <div class="content">
-                    <div class="checkbox">
-                        <input type="checkbox" name="checkbox" id="checkbox" />
-                        <label>Remember me</label>
+            <ng-container *ngIf="state$ | async as vm">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit.next()">
+                    <p-messages
+                        [(value)]="msgs"
+                        [enableService]="false"
+                        *ngIf="vm.hasError"
+                    ></p-messages>
+                    <h1>Đăng nhập</h1>
+                    <input
+                        id="email1"
+                        type="text"
+                        placeholder="Tên đăng nhập"
+                        formControlName="userName"
+                        required="true"
+                    />
+                    <input
+                        id="password1"
+                        type="password"
+                        placeholder="Mật khẩu"
+                        formControlName="password"
+                        required="true"
+                    />
+                    <div class="content">
+                        <div class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="checkbox"
+                                id="checkbox"
+                            />
+                            <label>Remember me</label>
+                        </div>
+                        <div class="pass-link">
+                            <a href="#">Forgot password?</a>
+                        </div>
                     </div>
-                    <div class="pass-link">
-                        <a href="#">Forgot password?</a>
-                    </div>
-                </div>
-                <button
-                    pButton
-                    [loading]="(loading$ | async)!"
-                    pRipple
-                    type="submit"
-                >
-                    Đăng nhập
-                </button>
-            </form>
+                    <button
+                        pButton
+                        [loading]="(loading$ | async)!"
+                        pRipple
+                        type="submit"
+                    >
+                        Đăng nhập
+                    </button>
+                </form>
+            </ng-container>
         </div>
         <div class="overlay-container">
             <div class="overlay">
